@@ -1,0 +1,11 @@
+//Author : #AUTHOR#
+//CreateTime : #CREATETIME#
+//Version : #VERSION#
+//UnityVersion : #UNITYVERSION#
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME#
+{
+
+}
+#ROOTNAMESPACEEND#
