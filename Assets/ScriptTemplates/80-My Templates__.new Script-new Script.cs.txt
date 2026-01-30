@@ -1,0 +1,16 @@
+//Author : #AUTHOR#
+//CreateTime : #CREATETIME#
+//Version : #VERSION#
+//UnityVersion : #UNITYVERSION#
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : MonoBehaviour
+{
+
+}
+#ROOTNAMESPACEEND#

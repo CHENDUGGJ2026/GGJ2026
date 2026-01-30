@@ -1,0 +1,33 @@
+//Author : #AUTHOR#
+//CreateTime : #CREATETIME#
+//Version : #VERSION#
+//UnityVersion : #UNITYVERSION#
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    #region SingleTon
+    private static #SCRIPTNAME# instance;
+    private static object locker = new object();
+    public static #SCRIPTNAME# Instance{
+        get{
+            if(instance == null){
+                lock(locker){
+                    if(instance == null){
+                        Debug.Log("#SCRIPTNAME# SingleTon Created !");
+                        GameObject go = new GameObject("#SCRIPTNAME#");
+                        instance = go.AddComponent<#SCRIPTNAME#>();
+                        DontDestroyOnLoad(go);
+                    }
+                }
+            }
+            return instance;
+        }
+    }
+    #endregion
+
+    private #SCRIPTNAME#(){}
+}
