@@ -23,14 +23,17 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
 
         private bool _start = false;
 
-        private float _BubbleMinTime = 1f;
-        private float _BubbleMaxTime = 5f;
+        private const float _BubbleMinTime = 1f;
+        private const float _BubbleMaxTime = 5f;
 
         private float _bubbleTimer = 0f;
         private float _bubbleTime = 1f;
 
-        private int _BubbleMinCount = 1;
-        private int _BubbleMaxCount = 5;
+        private const int _BubbleMinCount = 1;
+        private const int _BubbleMaxCount = 5;
+
+        private int _clickCount = 0;
+        private const int _maxClickCount = 5;
 
         private System.IDisposable _bubbleBoomEventDis;
 
@@ -58,7 +61,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         {
             if (evt.Reason == BubbleBoomReason.Click)
             {
-                string message = "";
+                //string message = "";
                 foreach (var v in evt.Value.GetValues())
                 {
                     if (_gameValue.TryGetValue(v.Key, out var value))
@@ -67,11 +70,17 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
                     }
 
                 }
-                foreach (var v in _gameValue.GetValues())
+
+                _clickCount++;
+                if(_clickCount >= _maxClickCount)
                 {
-                    message += $"{v.Key} {v.Value}\n";
+                    Stop();
                 }
-                Debug.Log($"Current Value:\n{message}");
+                //foreach (var v in _gameValue.GetValues())
+                //{
+                //    message += $"{v.Key} {v.Value}\n";
+                //}
+                //Debug.Log($"Current Value:\n{message}");
             }
         }
         public void Start()

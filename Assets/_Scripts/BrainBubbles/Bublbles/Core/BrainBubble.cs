@@ -57,7 +57,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Core
         {
             _trigger.onClick.AddListener(ClickBoom);
 
-            var text = _outFace.GetComponent<TextMeshProUGUI>();
+            var text = _outFace.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             if(text != null) text.text = _content;
 
             _easeInTimer = 0;
