@@ -23,7 +23,11 @@ namespace MyFrame.BrainBubbles.Frame.Core
         private Vector4 _bubbleRect = new Vector4(0.1f, 0.1f, 0.9f, 0.9f);
         private GameObject _frame;
         private Slider _timeSlider;
+        private Image _image;
 
+        private float _warnningTime = 0.7f;
+        private int _circle = 4;
+        private float _minA = 0.7f;
         public BubbleFrame(RectTransform transform,GameObject frame,Vector2Int pos , Vector2Int size)
         {
 
@@ -31,13 +35,21 @@ namespace MyFrame.BrainBubbles.Frame.Core
             RectTransform = _frame.GetComponent<RectTransform>();
             RectTransform.anchoredPosition = pos;
             RectTransform.sizeDelta = size;
+           
 
             _timeSlider = _frame.transform.Find("Time").GetComponent<Slider>();
+            _image = _timeSlider.fillRect.GetComponent<Image>();
         }
 
         public void ChangeTimeSlider(float time)
         {
             _timeSlider.value = time;
+             _image.color = UIManager.Instance.Gradient.Evaluate(time);
+            if( time > _warnningTime)
+            {
+                var t = (time - _warnningTime)*_circle / (1-_warnningTime)*Mathf.PI;
+                _image.color = new Color(_image.color.r,_image.color.g,_image.color.b,_minA + (1-_minA)* Mathf.Cos(t)* Mathf.Cos(t));
+            }
         }
 
         public bool InFrame(BubblePos pos) => (Xmin <= pos.X)

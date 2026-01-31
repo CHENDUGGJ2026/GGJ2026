@@ -8,6 +8,7 @@
 using MyFrame.BrainBubbles.Bubbles.Core;
 using MyFrame.BrainBubbles.Bubbles.Refs;
 using MyFrame.EventSystem.Interfaces;
+using System;
 
 namespace MyFrame.EventSystem.Events
 {
@@ -57,16 +58,52 @@ namespace MyFrame.EventSystem.Events
     {
         private readonly bool _res;
         private readonly string _message ;
+        private readonly GameValue _value;
 
-        public GameOverEvent(bool res, string message = "")
+        public GameOverEvent(bool res, GameValue value, string message = "")
         {
             _res = res;
+            _value = value;
             _message = message;
         }
 
         public bool Res { get { return _res; } }
         public string Message { get { return _message; }}
+        public GameValue Value { get { return _value; } }
     }
 
-    
+    public sealed class BubbleClickEvent : IEvent
+    {
+        private readonly string _id;
+        private readonly BubblePos _pos;
+        private readonly TypeValue _type;
+
+        public BubbleClickEvent(string id, BubblePos pos, TypeValue type)
+        {
+            _id = id;
+            _pos = pos;
+            _type = type;
+        }
+        public string Id { get { return _id; }}
+        public BubblePos Pos { get { return _pos; }}
+        public TypeValue Type { get { return _type; }}
+    }
+
+    public sealed class BallArriveEvent : IEvent
+    {
+        private readonly string _id;
+        private readonly BubbleType _type;
+        private readonly float _value;
+
+        public BallArriveEvent(string id, BubbleType type, float value)
+        {
+            _id = id;
+            _type = type;
+            _value = value;
+        }
+        public string Id { get { return _id; } }
+        public BubbleType Type { get { return _type; }}
+        public float Value { get { return _value; }}
+    }
+
 }
