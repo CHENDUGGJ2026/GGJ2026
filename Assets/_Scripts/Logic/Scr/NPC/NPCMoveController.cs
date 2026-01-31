@@ -7,7 +7,7 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 public class NPCMoveController : MonoBehaviour
 {
     private INPCAnim nPCAnim;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     [SerializeField] float speed;
     private float aliveTime; 
 
@@ -25,6 +25,7 @@ public class NPCMoveController : MonoBehaviour
             aliveTime -= Time.deltaTime;
         }else
         {
+
             Destroy(gameObject);
         }
     }
