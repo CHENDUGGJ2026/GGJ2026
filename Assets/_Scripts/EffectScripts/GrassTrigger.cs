@@ -111,7 +111,7 @@ public class GrassTrigger : MonoBehaviour
 
         while (durationTime < grassController.easeInTime)
         {
-            durationTime += Time.deltaTime;
+            durationTime += Time_Fight.deltaTime;
             float t = durationTime / grassController.easeInTime;
             // 可选：增加缓动曲线，让插值更自然（如Mathf.SmoothStep）
             float lerpedAmount = Mathf.Lerp(startValue, targetXVelocity, t);
@@ -133,7 +133,7 @@ public class GrassTrigger : MonoBehaviour
 
         while (durationTime < grassController.easeOutTime) // 修正拼写：easeOurTime→easeOutTime
         {
-            durationTime += Time.deltaTime;
+            durationTime += Time_Fight.deltaTime;
             float t = durationTime / grassController.easeOutTime;
             // 修正Lerp参数顺序：从当前值→初始值
             float lerpedAmount = Mathf.Lerp(startValue, _startingVelocity, t);
