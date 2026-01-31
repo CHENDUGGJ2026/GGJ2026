@@ -28,6 +28,9 @@ namespace LunziSpace
                 TextAsset newDialogText = UIManager.Instance.DialogPanel.GetComponent<DialogController>().dialogDataBase.GetRandomNormalDialog(characterData.npcID);
                 UIManager.Instance.DialogPanel.GetComponent<DialogController>().UpdataCurText(newDialogText);
                 UIManager.Instance.DialogPanel.SetActive(true);
+
+
+                Debug.Log(UIManager.Instance.DialogPanel.GetComponent<DialogController>().GetConditionValue());
             }
         }
         private void OnTriggerStay2D(Collider2D collision)

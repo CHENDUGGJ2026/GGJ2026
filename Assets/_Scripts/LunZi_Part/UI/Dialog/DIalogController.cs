@@ -1,3 +1,5 @@
+using luoyu;
+using MyFrame.BrainBubbles.Bubbles.Manager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -52,7 +54,10 @@ namespace LunziSpace
             FightBtn.SetActive(false);
             _fightBtn.onClick.AddListener(() =>
             {
-                FightAction?.Invoke();
+                var scene = new BrainSceneManager(this.gameObject.transform.parent.GetComponent<RectTransform>(), Vector2Int.zero , new Vector2Int(Screen.width, Screen.height), new GameOverAdaptor(new Over()));
+                GameManager.Instance.AddUpdateListener("BrainSceneManager", scene.OnUpdate);
+                scene.Start();
+                //FightAction?.Invoke();
                 Debug.Log("Õ½¶·¿ªÊ¼");
             });
         }
