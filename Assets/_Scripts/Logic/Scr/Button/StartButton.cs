@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class StartButton : MonoBehaviour
 {
     private Canvas canvas;
+    public VideoController controller;
 
     private void Start()
     {
@@ -13,6 +14,7 @@ public class StartButton : MonoBehaviour
     }
     public void PutDown()
     {
-        SceneManager.LoadScene("LogicScene");
+        canvas.enabled = false;
+        controller.StartVideo();
     }
 }
