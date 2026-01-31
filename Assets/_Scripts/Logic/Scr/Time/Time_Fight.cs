@@ -113,47 +113,42 @@ namespace luoyu
 
         public bool Win(OverInformation information, int face_num, int target)
         {
+            Debug.Log($"need : {face_num}  need value: {target}   current value:\nafraid: {information.afraid}\n" +
+                $"happy: {information.happy}\nsad : {information.sad}\nangry : {information.angry}");
             switch (face_num)
             {
                 case 1:
-                    if (information.happy > information.sad && information.happy > information.afraid && information.happy > information.angry)
+                    if (information.happy > information.sad && information.happy > information.afraid 
+                        && information.happy > information.angry && information.happy>=target)
                     {
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    break;
                 case 2:
-                    if (information.sad > information.happy && information.sad > information.afraid && information.sad > information.angry)
+                    if (information.sad > information.happy && information.sad > information.afraid
+                        && information.sad > information.angry&&information.sad>=target)
                     {
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    break;
                 case 4:
-                    if (information.afraid > information.happy && information.afraid > information.sad && information.afraid > information.angry)
+                    if (information.afraid > information.happy && information.afraid > information.sad
+                        && information.afraid > information.angry && information.afraid >= target)
                     {
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    break ;
                 case 3:
-                    if (information.angry > information.happy && information.angry > information.sad && information.angry > information.afraid)
+                    if (information.angry > information.happy && information.angry > information.sad 
+                        && information.angry > information.afraid && information.angry >= target)
                     {
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    break;
                 default:
                     return false;
             }
+            return false;
         }
 
     }

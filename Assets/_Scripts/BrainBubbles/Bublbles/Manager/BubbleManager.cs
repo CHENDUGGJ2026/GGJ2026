@@ -54,15 +54,9 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             OnStart();
 
             _bubbleBoomEventDis = _eventBus.Subscribe<BubbleBoomEvent>(OnBubbleBoomEvent);
-            _bubbleBoomEventDis = _eventBus.Subscribe<GameOverEvent>(OnGameOverEvent);
         }
 
-        private void OnGameOverEvent(GameOverEvent evt)
-        {
-            Over(evt.Message);
-        }
-
-        private void Over(string message = "")
+        public void Over(string message = "")
         {
             foreach (var bubble in _bubbles.Values)
             {

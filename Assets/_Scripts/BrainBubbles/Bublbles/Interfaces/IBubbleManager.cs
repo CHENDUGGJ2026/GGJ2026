@@ -14,5 +14,6 @@ namespace MyFrame.BrainBubbles.Bubbles.Interfaces
         void OnStart();
         void OnUpdate(float deltaTime);
         void RemoveBubble(string id);
+        void Over(string message);
     }
 }
