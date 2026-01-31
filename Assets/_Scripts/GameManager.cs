@@ -46,7 +46,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         private GameManager()
         {
         }
-        IEventBusCore _eventBus;
+        public IEventBusCore _eventBus;
         private Dictionary<string, Action<float>> ToUpdate { get; set; }
         private List<string> ToRemoveUpdate { get; set; }
         private void Update()
