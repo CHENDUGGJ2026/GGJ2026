@@ -1,0 +1,67 @@
+{
+  "characterDatas": [
+    {
+      "npcID": "NPC_001",
+      "name": "摇滚吉他手",
+      "textPath": "Dialogues/NPC_001",
+      "SpritePath": "Sprites/NPC/NPC_001",
+      "normalDialogCount": 5
+    },
+    {
+      "npcID": "NPC_002",
+      "name": "体育生",
+      "textPath": "Dialogues/NPC_002",
+      "SpritePath": "Sprites/NPC/NPC_002",
+      "normalDialogCount": 5
+    },
+    {
+      "npcID": "NPC_003",
+      "name": "医生",
+      "textPath": "Dialogues/NPC_003",
+      "SpritePath": "Sprites/NPC/NPC_003",
+      "normalDialogCount": 5
+    },
+    {
+      "npcID": "NPC_004",
+      "name": "上班族",
+      "textPath": "Dialogues/NPC_004",
+      "SpritePath": "Sprites/NPC/NPC_004",
+      "normalDialogCount": 5
+    },
+    {
+      "npcID": "NPC_005",
+      "name": "流氓",
+      "textPath": "Dialogues/NPC_005",
+      "SpritePath": "Sprites/NPC/NPC_005",
+      "normalDialogCount": 5
+    },
+    {
+      "npcID": "NPC_006",
+      "name": "警察",
+      "textPath": "Dialogues/NPC_006",
+      "SpritePath": "Sprites/NPC/NPC_006",
+      "normalDialogCount": 5
+    },
+    {
+      "npcID": "NPC_007",
+      "name": "地下偶像",
+      "textPath": "Dialogues/NPC_007",
+      "SpritePath": "Sprites/NPC/NPC_007",
+      "normalDialogCount": 5
+    },
+    {
+      "npcID": "NPC_008",
+      "name": "jk少女",
+      "textPath": "Dialogues/NPC_008",
+      "SpritePath": "Sprites/NPC/NPC_008",
+      "normalDialogCount": 5
+    },
+    {
+      "npcID": "NPC_009",
+      "name": "时尚贵妇",
+      "textPath": "Dialogues/NPC_009",
+      "SpritePath": "Sprites/NPC/NPC_009",
+      "normalDialogCount": 5
+    }
+  ]
+}
