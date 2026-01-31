@@ -35,8 +35,8 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
                             DontDestroyOnLoad(g);
                             _instance = g.AddComponent<GameManager>();  
                             _instance._eventBus = new EventBusCore();
-                            _instance.ToUpdate = new();
-                            _instance.ToRemoveUpdate = new();
+                            _instance.ToUpdate = new Dictionary<string, Action<float>>();
+                            _instance.ToRemoveUpdate = new List<string>();
                         }
                     }
                 }
@@ -58,9 +58,14 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
                     ToUpdate.Remove(item);
                 }
             }
-            foreach(var action in ToUpdate.Values)
+            foreach(var action in ToUpdate)
             {
-                action(Time.deltaTime);
+                if(action.Value is null )
+                {
+                    RemoveUpdateListener(action.Key);
+                    continue;
+                }
+                else action.Value(Time.deltaTime);
             }
         }
         /// <summary>
