@@ -13,4 +13,276 @@ MonoBehaviour:
   m_Name: Data
   m_EditorClassIdentifier: 
   OutFace: {fileID: 5667856944010285271, guid: b3a8ad5921243c7498bacd899221ce64, type: 3}
-  values: []
+  values:
+  - content: "\u54C8\u54C8\u54C8 "
+    value:
+    - type: 1
+      value: 25
+  - content: "\u5634\u89D2\u4E0A\u626C "
+    value:
+    - type: 1
+      value: 30
+  - content: "\u771F\u662F\u7F8E\u4E8B"
+    value:
+    - type: 1
+      value: 40
+  - content: "\u7B11\u4E0D\u6D3B\u4E86 "
+    value:
+    - type: 1
+      value: 30
+    - type: 2
+      value: 10
+  - content: "\u597D\u4E8B\u4E34\u95E8 "
+    value:
+    - type: 1
+      value: 35
+  - content: "\u7B11\u5230\u5192\u6CE1 "
+    value:
+    - type: 1
+      value: 40
+  - content: "\u751C\u5EA6\u8D85\u6807 "
+    value:
+    - type: 1
+      value: 25
+    - type: 4
+      value: 10
+  - content: "feel\u500D\u723D "
+    value:
+    - type: 1
+      value: 30
+  - content: "\u6BCF\u9022\u559C\u4E8B\u7CBE\u795E\u723D "
+    value:
+    - type: 1
+      value: 25
+  - content: "\u5982\u610F\u5982\u610F\u987A\u6211\u5FC3\u610F "
+    value:
+    - type: 1
+      value: 30
+    - type: 2
+      value: 15
+  - content: "\u8D85\u8D5E\uFF01 "
+    value:
+    - type: 1
+      value: 20
+    - type: 8
+      value: 10
+  - content: "\u8FD9\u662F\u597D\u4E8B\u554A "
+    value:
+    - type: 1
+      value: 30
+    - type: 4
+      value: 20
+    - type: 8
+      value: 10
+  - content: "\u6765\u8D22\u6765\u8D22 "
+    value:
+    - type: 1
+      value: 25
+  - content: "\u606D\u559C\u53D1\u8D22\uFF01\uFF01 "
+    value:
+    - type: 1
+      value: 25
+    - type: 8
+      value: 10
+  - content: "\u539F\u5730\u5C01\u795E "
+    value:
+    - type: 1
+      value: 30
+  - content: "emo\u5566 "
+    value:
+    - type: 4
+      value: 30
+  - content: "\u5DF2\u7834\u9632 "
+    value:
+    - type: 4
+      value: 30
+    - type: 1
+      value: 10
+  - content: "\u54ED\u6655\u5728\u5395\u6240 "
+    value:
+    - type: 4
+      value: 30
+    - type: 1
+      value: 10
+  - content: "\u6CEA\u6D12\u5F53\u573A "
+    value:
+    - type: 4
+      value: 25
+  - content: "\u54E5\u306E\u60B2\u4F24\uFF0C\u65E0\u4EBA\u80FD\u61C2 "
+    value:
+    - type: 4
+      value: 40
+    - type: 1
+      value: 15
+  - content: "\u7CDF\u5FC3 "
+    value:
+    - type: 4
+      value: 20
+  - content: "\u96E8\u4E0B\u6574\u591C\u3002\u3002 "
+    value:
+    - type: 4
+      value: 30
+  - content: "\u54ED\u54ED "
+    value:
+    - type: 4
+      value: 20
+  - content: "\u8FD9\u5EA7\u57CE\u591A\u4E86\u4E2A\u4F24\u5FC3\u4EBA "
+    value:
+    - type: 4
+      value: 30
+  - content: "\u6CEA\u5D29 "
+    value:
+    - type: 4
+      value: 25
+  - content: "\u84DD\u7626\u9999\u83C7"
+    value:
+    - type: 4
+      value: 25
+    - type: 1
+      value: 15
+  - content: "\u751F\u800C\u4E3A\u4EBA\uFF0C\u6211\u5F88\u62B1\u6B49 "
+    value:
+    - type: 4
+      value: 35
+    - type: 8
+      value: 25
+  - content: "\u6211\u6709\u7389\u7C73\u75C7 "
+    value:
+    - type: 4
+      value: 35
+  - content: "\u6CD5\uFF0C\u4E3A\u4EC0\u4E48\u8FD9\u4E48\u5BF9\u6211 "
+    value:
+    - type: 4
+      value: 35
+    - type: 2
+      value: 25
+  - content: "\u5FC3\u788E\u79BB\u573A"
+    value:
+    - type: 4
+      value: 35
+    - type: 2
+      value: 10
+  - content: "\u868C\u57E0\u4F4F\u4E86 "
+    value:
+    - type: 2
+      value: 30
+    - type: 1
+      value: 25
+  - content: "\u62F3\u5934\u55EF\u4E86 "
+    value:
+    - type: 2
+      value: 35
+  - content: "\u8840\u538B\u98D9\u5347 "
+    value:
+    - type: 2
+      value: 30
+  - content: "\u6012\u706B\u653B\u5FC3 "
+    value:
+    - type: 2
+      value: 25
+  - content: "\u62F3\u5934\u6886\u786C "
+    value:
+    - type: 2
+      value: 25
+  - content: "\u607C\u706B\u54E6 "
+    value:
+    - type: 2
+      value: 30
+    - type: 4
+      value: 15
+  - content: "\u8C6A\u610F\u503C\u6EE1\u4E86 "
+    value:
+    - type: 2
+      value: 30
+  - content: "\u592A\u53EF\u6068\u4E86\u7B80\u76F4 "
+    value:
+    - type: 2
+      value: 35
+    - type: 8
+      value: 25
+  - content: "\u6C14\u6B7B\u6211\u4E86\uFF01 "
+    value:
+    - type: 2
+      value: 25
+  - content: "\u79BB\u79BB\u539F\u4E0A\u8C31 "
+    value:
+    - type: 2
+      value: 25
+    - type: 8
+      value: 20
+  - content: "\u6C14\u70B8\u4E86 "
+    value:
+    - type: 2
+      value: 25
+  - content: "\u6C14\u70B8\u6BDB\u4E86\u7ED9\u6211 "
+    value:
+    - type: 2
+      value: 25
+  - content: "\u8840\u6012\u8981\u51FA\u6765\u4E86 "
+    value:
+    - type: 2
+      value: 30
+  - content: "\u592A\u8FC7\u5206\uFF0C\u5FCD\u4E0D\u4E86\u4E86 "
+    value:
+    - type: 2
+      value: 30
+  - content: "\u6C14\u6B7B\u4EBA\u4E86 "
+    value:
+    - type: 2
+      value: 25
+  - content: "\u597D\u614C\u554A "
+    value:
+    - type: 8
+      value: 30
+  - content: "\u614C\u5F97\u4E00\u6279 "
+    value:
+    - type: 8
+      value: 35
+  - content: "\u5934\u76AE\u53D1\u9EBB "
+    value:
+    - type: 8
+      value: 30
+    - type: 2
+      value: 20
+    - type: 1
+      value: 15
+  - content: "\u8FDE\u591C\u6297\u706B\u8F66\u8DD1\u8DEF "
+    value:
+    - type: 8
+      value: 40
+  - content: "\u6015\u4E86\u6015\u4E86 "
+    value:
+    - type: 8
+      value: 25
+  - content: "\u60F3\u5C3F\u5C3F"
+    value:
+    - type: 8
+      value: 30
+    - type: 2
+      value: 10
+  - content: "\u745F\u745F\u53D1\u6296 "
+    value:
+    - type: 8
+      value: 35
+  - content: "\u77B3\u5B54\u5730\u9707 "
+    value:
+    - type: 8
+      value: 35
+  - content: "\u5413\u51FA\u8868\u60C5\u5305 "
+    value:
+    - type: 8
+      value: 35
+    - type: 1
+      value: 20
+  - content: "\u540E\u80CC\u53D1\u51C9 "
+    value:
+    - type: 8
+      value: 30
+  - content: "\u62B1\u7D27\u81EA\u5DF1 "
+    value:
+    - type: 8
+      value: 30
+  - content: "\u54C8\u4EBA\u54E6"
+    value:
+    - type: 8
+      value: 20

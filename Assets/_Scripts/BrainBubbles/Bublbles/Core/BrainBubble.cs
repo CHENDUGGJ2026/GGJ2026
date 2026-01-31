@@ -107,7 +107,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Core
             }
         }
 
-        private void Over(BubbleBoomReason reason , string message = "")
+        public void Over(BubbleBoomReason reason , string message = "")
         {
             Boom(reason,message);
             GameObject.Destroy(_outFace);

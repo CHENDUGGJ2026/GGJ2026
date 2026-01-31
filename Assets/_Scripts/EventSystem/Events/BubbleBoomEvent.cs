@@ -52,4 +52,24 @@ namespace MyFrame.EventSystem.Events
         public BubblePos NewPos { get { return _newPos; } }
         public string Message { get { return _message; } }
     }
+
+    public sealed class GameOverEvent : IEvent
+    {
+        private readonly GameOverReason _reason;
+        private readonly GameValue _value;
+        private readonly string _message;
+
+        public GameOverEvent(GameOverReason reason, GameValue value, string message = "")
+        {
+            _reason = reason;
+            _value = value;
+            _message = message;
+        }
+
+        public GameOverReason Reason { get { return _reason; } }
+        public GameValue Value { get { return _value; } }
+        public string Message { get { return _message; }}
+    }
+
+    
 }

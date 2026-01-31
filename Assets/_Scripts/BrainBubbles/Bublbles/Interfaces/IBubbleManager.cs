@@ -3,13 +3,14 @@
 //Version : 1.0
 //UnityVersion : 2022.3.62f2c1
 
+using MyFrame.BrainBubbles.Bubbles.Core;
 using MyFrame.BrainBubbles.Bubbles.Refs;
 
 namespace MyFrame.BrainBubbles.Bubbles.Interfaces
 {
     public interface IBubbleManager
     {
-        void NewBubble(BubblePos pos);
+        bool NewBubble(BubblePos pos,out BubbleBase bubble);
         void OnStart();
         void OnUpdate(float deltaTime);
         void RemoveBubble(string id);
