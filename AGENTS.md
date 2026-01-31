@@ -2,7 +2,7 @@
 - Project name: GGJ2026
 - Unity version: Unity 2022.3.62f2c1
 - Active game object:
-  - Name: NPC
-  - Tag: NPC
+  - Name: Circle
+  - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
