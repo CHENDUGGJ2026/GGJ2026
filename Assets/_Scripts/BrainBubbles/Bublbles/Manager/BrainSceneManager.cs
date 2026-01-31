@@ -3,6 +3,8 @@
 //Version : 1.0
 //UnityVersion : 2022.3.62f2c1
 
+using LunziSpace;
+using luoyu;
 using MyFrame.BrainBubbles.Bubbles.Interfaces;
 using MyFrame.BrainBubbles.Bubbles.Refs;
 using MyFrame.BrainBubbles.Frame.Core;
@@ -10,15 +12,63 @@ using MyFrame.EventSystem.Core;
 using MyFrame.EventSystem.Events;
 using MyFrame.EventSystem.Interfaces;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace MyFrame.BrainBubbles.Bubbles.Manager
 {
+    public interface IGameOver
+    {
+        /// <summary>
+        /// outPut Info 
+        /// </summary>
+        /// <param name="_gameValue"></param>
+        void GameOver(GameValue _gameValue);
+    }
+    public class GameOverAdaptor : IGameOver
+    {
+        private readonly IResultInformastion _resultInformastion;
+
+        public GameOverAdaptor(IResultInformastion resultInformastion)
+        {
+            _resultInformastion = resultInformastion;
+        }
+
+        public void GameOver(GameValue _gameValue)
+        {
+            var value = new OverInformation();
+            foreach(var v in _gameValue.GetValues())
+            {
+                switch(v.Key)
+                {
+                    case BubbleType.Happy:
+                        value.happy =(int) v.Value;
+                        break;
+                    case BubbleType.Scared:
+                        value.afraid =(int) v.Value; break;
+                    case BubbleType.Sad:
+                        value.sad =(int) v.Value;
+                        break;
+                    case BubbleType.Angry:
+                        value.angry =(int) v.Value;
+                        break;
+                }     
+            }
+            var c = UIManager.Instance.DialogPanel.GetComponent<DialogController>();
+            var face = c?.TargetValue();
+            var condition = c?.GetConditionValue();
+            var res = _resultInformastion.ResultJudgment(value, face.Value, condition.Value);
+            GameManager.Instance._eventBus.Publish(new GameOverEvent(res, "GameOver"));
+            Debug.Log($"GameOver: If Win? {res}");
+        }
+    }
     public class BrainSceneManager : IBrainSceneManager
     {
         private IBubbleManager _bubbleManager;
         private IEventBusCore _eventBusCore;
         private BubbleFrame _bubbleFrame;
+
+        private IGameOver _gameOver;
 
         private GameValue _gameValue;
 
@@ -51,11 +101,12 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             _bubbleBoomEventDis?.Dispose();
         }
 
-        public BrainSceneManager(RectTransform transform, Vector2Int pos, Vector2Int size, IEventBusCore eventBusCore = null)
+        public BrainSceneManager(RectTransform transform, Vector2Int pos, Vector2Int size,IGameOver gameOver ,IEventBusCore eventBusCore = null)
         {
             BubblesData bubblesData = Resources.Load<BubblesData>("BubblesInfo/Data");
             GameObject frame = Resources.Load<GameObject>("BubblesInfo/Frame");
             _eventBusCore = eventBusCore ?? new EventBusCore();
+            _gameOver = gameOver;
 
             _bubbleFrame = new BubbleFrame(transform,frame,pos,size);
             _bubbleManager = new BubbleManager(_eventBusCore, _bubbleFrame.RectTransform, BubblesInfo.Bulid(bubblesData));
@@ -107,15 +158,19 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         {
             _start = false;
         }
-        public GameValue GameOver(GameOverReason reason, string message = "")
+        public void GameOver(GameOverReason reason, string message = "")
         {
-            _eventBusCore.Publish(new GameOverEvent(reason, _gameValue, message));
+            _bubbleManager.Over(message);
             Stop();
+            _gameOver.GameOver(_gameValue);
             _gameValue = new GameValue();
             _bubblePos = new Dictionary<string, BubblePos>();
             _toRemove.Clear();
             _time = _gameTime;
-            return _gameValue;
+
+            Debug.Log("Current BrainScene : " + _start);
+
+            return;
         }
 
         private void TimeUpdate(float time)

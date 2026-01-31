@@ -9,7 +9,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Interfaces
 {
     public interface IBrainSceneManager
     {
-        GameValue GameOver(GameOverReason reason,string message);
+        void GameOver(GameOverReason reason,string message);
         void OnUpdate(float time);
         void Start();
         void Stop();

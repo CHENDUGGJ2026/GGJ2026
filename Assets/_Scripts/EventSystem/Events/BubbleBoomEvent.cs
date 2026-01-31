@@ -55,19 +55,16 @@ namespace MyFrame.EventSystem.Events
 
     public sealed class GameOverEvent : IEvent
     {
-        private readonly GameOverReason _reason;
-        private readonly GameValue _value;
-        private readonly string _message;
+        private readonly bool _res;
+        private readonly string _message ;
 
-        public GameOverEvent(GameOverReason reason, GameValue value, string message = "")
+        public GameOverEvent(bool res, string message = "")
         {
-            _reason = reason;
-            _value = value;
+            _res = res;
             _message = message;
         }
 
-        public GameOverReason Reason { get { return _reason; } }
-        public GameValue Value { get { return _value; } }
+        public bool Res { get { return _res; } }
         public string Message { get { return _message; }}
     }
 
