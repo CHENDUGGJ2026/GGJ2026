@@ -15,7 +15,7 @@ namespace LunziSpace{
         [Header("触发区域")]
        [SerializeField] private CircleCollider2D myCircleCollider;
         [Header("触发器大小")]
-        [SerializeField] private int circleRadius =3;
+        [SerializeField] private int circleRadius = 16;
         void Start()
         {
             Init();
