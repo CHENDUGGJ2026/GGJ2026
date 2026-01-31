@@ -10,6 +10,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Refs
         None = 0,
         Click = 1 << 0,
         TimeOff = 1 << 1,
+        GameOver = 1 << 2,
     }
 
     public enum BubbleType

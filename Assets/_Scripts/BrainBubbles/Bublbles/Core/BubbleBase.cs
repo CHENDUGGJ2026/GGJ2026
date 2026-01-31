@@ -45,6 +45,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Core
         protected readonly TypeValue _values;
         protected readonly IEventBusCore _eventBusCore;
 
+        public string ID => _id;
         public BubbleBase(string id, TypeValue values, IEventBusCore eventBusCore)
         {
             _id = id;
@@ -55,7 +56,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Core
         public virtual BubbleBoomReport Boom(BubbleBoomReason reason, string message = "")
         {
             _eventBusCore.Publish(new BubbleBoomEvent(_id, reason,_values, message));
-            Debug.Log($"Boom! Reason: {reason}");
+            Debug.Log($"Boom! Reason: {reason}  Id: {_id}");
             return new BubbleBoomReport(reason,_values, _id , message);
         }
         public abstract void Init();

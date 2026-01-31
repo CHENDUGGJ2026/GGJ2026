@@ -6,6 +6,7 @@
 using MyFrame.BrainBubbles.Bubbles.Refs;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MyFrame.BrainBubbles.Frame.Interfaces
 {
@@ -21,13 +22,22 @@ namespace MyFrame.BrainBubbles.Frame.Core
         public RectTransform RectTransform { get; private set; }
         private Vector4 _bubbleRect = new Vector4(0.1f, 0.1f, 0.9f, 0.9f);
         private GameObject _frame;
+        private Slider _timeSlider;
 
         public BubbleFrame(RectTransform transform,GameObject frame,Vector2Int pos , Vector2Int size)
         {
-            _frame = frame;
-            RectTransform = GameObject.Instantiate(frame, transform,false ).GetComponent<RectTransform>();
+
+            _frame = GameObject.Instantiate(frame, transform,false );
+            RectTransform = _frame.GetComponent<RectTransform>();
             RectTransform.anchoredPosition = pos;
             RectTransform.sizeDelta = size;
+
+            _timeSlider = _frame.transform.Find("Time").GetComponent<Slider>();
+        }
+
+        public void ChangeTimeSlider(float time)
+        {
+            _timeSlider.value = time;
         }
 
         public bool InFrame(BubblePos pos) => (Xmin <= pos.X)

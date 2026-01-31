@@ -9,6 +9,7 @@ using MyFrame.BrainBubbles.Frame.Core;
 using MyFrame.EventSystem.Core;
 using MyFrame.EventSystem.Events;
 using MyFrame.EventSystem.Interfaces;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyFrame.BrainBubbles.Bubbles.Manager
@@ -23,17 +24,28 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
 
         private bool _start = false;
 
-        private float _BubbleMinTime = 1f;
-        private float _BubbleMaxTime = 5f;
+        private const float _gameTime = 10f;
+        private float _time = 0;
+
+        private const float _BubbleMinTime = 1f;
+        private const float _BubbleMaxTime = 2f;
 
         private float _bubbleTimer = 0f;
         private float _bubbleTime = 1f;
 
-        private int _BubbleMinCount = 1;
-        private int _BubbleMaxCount = 5;
+        private const int _BubbleMinCount = 2;
+        private const int _BubbleMaxCount = 5;
+
+        private int _clickCount = 0;
+        private const int _maxClickCount = 5;
+
+        private const int _maxRandomTimes = 3;
+        private const float _minBubbleDistance = 80f;
+        private List<string> _toRemove;
 
         private System.IDisposable _bubbleBoomEventDis;
 
+        private Dictionary<string, BubblePos> _bubblePos;
         ~BrainSceneManager()
         {
             _bubbleBoomEventDis?.Dispose();
@@ -48,17 +60,23 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             _bubbleFrame = new BubbleFrame(transform,frame,pos,size);
             _bubbleManager = new BubbleManager(_eventBusCore, _bubbleFrame.RectTransform, BubblesInfo.Bulid(bubblesData));
 
-            _gameValue = new GameValue();
+            _bubbleBoomEventDis = _eventBusCore.Subscribe<BubbleBoomEvent>(OnBubbleBoomEvent);
+
             _start = false;
 
-            _bubbleBoomEventDis = _eventBusCore.Subscribe<BubbleBoomEvent>(OnBubbleBoomEvent);
+            _time = _gameTime;
+            _gameValue = new GameValue();
+            _bubblePos = new Dictionary<string, BubblePos>();
+            _toRemove = new List<string>();
+            
         }
 
         private void OnBubbleBoomEvent(BubbleBoomEvent evt)
         {
+            _toRemove.Add(evt.Id);
             if (evt.Reason == BubbleBoomReason.Click)
             {
-                string message = "";
+
                 foreach (var v in evt.Value.GetValues())
                 {
                     if (_gameValue.TryGetValue(v.Key, out var value))
@@ -67,6 +85,13 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
                     }
 
                 }
+
+                _clickCount++;
+                if(_clickCount >= _maxClickCount)
+                {
+                    GameOver(GameOverReason.ClickTimesOn, $"ClickCount: {_clickCount}");
+                }
+                string message = "";
                 foreach (var v in _gameValue.GetValues())
                 {
                     message += $"{v.Key} {v.Value}\n";
@@ -82,17 +107,42 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         {
             _start = false;
         }
-        public GameValue GameOver()
+        public GameValue GameOver(GameOverReason reason, string message = "")
         {
+            _eventBusCore.Publish(new GameOverEvent(reason, _gameValue, message));
             Stop();
+            _gameValue = new GameValue();
+            _bubblePos = new Dictionary<string, BubblePos>();
+            _toRemove.Clear();
+            _time = _gameTime;
             return _gameValue;
         }
 
-        public void OnUpdate()
+        private void TimeUpdate(float time)
+        {
+            if(_time > 0)
+            {
+                _time -= time;
+                _bubbleFrame.ChangeTimeSlider(_time/_gameTime);
+            }
+            else
+            {
+                GameOver(GameOverReason.TimeOff,"TimeOff");
+            }
+        }
+
+        public void OnUpdate(float time)
         {
             if (!_start) return;
-            _bubbleManager.OnUpdate(Time.deltaTime);
-
+            TimeUpdate(time);
+            _bubbleManager.OnUpdate(time);
+            if(_toRemove.Count > 0)
+            {
+                foreach (var v in _toRemove)
+                {
+                    _bubblePos.Remove(v);
+                }
+            }
             if (_bubbleTimer < _bubbleTime)
             {
                 _bubbleTimer += Time.deltaTime;
@@ -103,9 +153,28 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
                 int count = Random.Range(_BubbleMinCount, _BubbleMaxCount + 1);
                 for (int i = 0; i < count; i++)
                 {
-                    float x = Random.Range(_bubbleFrame.Xmin, _bubbleFrame.Xmax);
-                    float y = Random.Range(_bubbleFrame.Ymin, _bubbleFrame.Ymax);
-                    _bubbleManager.NewBubble(new BubblePos((int)x, (int)y));
+                    float x, y;
+                    int randomTime = 0;
+                    while(randomTime < _maxRandomTimes)
+                    {
+                        x = Random.Range(_bubbleFrame.Xmin, _bubbleFrame.Xmax);
+                        y = Random.Range(_bubbleFrame.Ymin, _bubbleFrame.Ymax);
+
+                        bool ok = true;
+                        foreach (var b in _bubblePos.Values)
+                        {
+                            if((x - b.X) * (x - b.X) + (y - b.Y) * (y - b.Y) < _minBubbleDistance * _minBubbleDistance)
+                            {
+                                ok = false;
+                            }
+                        }
+                        if(ok)
+                        {
+                            if (_bubbleManager.NewBubble(new BubblePos((int)x, (int)y), out var bubble)) _bubblePos[bubble.ID] = new BubblePos((int)x, (int)y);
+                            break;
+                        }
+                    }
+                    
                 }
                 _bubbleTime = Random.Range(_BubbleMinTime, _BubbleMaxTime);
             }

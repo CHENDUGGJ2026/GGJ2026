@@ -12,6 +12,7 @@ using UnityEngine;
 namespace MyFrame.BrainBubbles.Bubbles.Refs
 {
 
+    [Serializable]
     public class BubblesInfo
     {
         private GameObject _outFace;

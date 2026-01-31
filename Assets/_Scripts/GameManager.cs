@@ -10,35 +10,73 @@ using MyFrame.BrainBubbles.Frame.Core;
 using MyFrame.EventSystem.Core;
 using MyFrame.EventSystem.Interfaces;
 using UnityEngine;
-
+using static BasePanelController;
+using LunziSpace;
+using System.Collections.Generic;
+using System;
 
 namespace MyFrame.BrainBubbles.Bubbles.Manager
 {
     public class GameManager : MonoBehaviour
     {
-        private IEventBusCore _eventBus;
-        private RectTransform _frame;
-        private BubblesInfo _bubblesInfo;
-        private IBubbleManager _bubbleManager;
-
-        private BubbleFrame _bubbleFrame;
-        private BrainSceneManager _brainSceneManager;
-
-        private void Start()
+        private static GameManager _instance;
+        private static object _lock = new object();
+        public static GameManager Instance
         {
-            // EventSystem Bulid
-            _eventBus = new EventBusCore();
-            
-            _frame = GameObject.Find("Canvas").GetComponent<RectTransform>();
-            _brainSceneManager = new BrainSceneManager(_frame, new Vector2Int(-200, -100), new Vector2Int(600, 300));
-            
-
-            _brainSceneManager.Start();
+            get
+            {
+                if(_instance == null)
+                {
+                    lock(_lock)
+                    {
+                        if(_instance == null)
+                        {
+                            var g = new GameObject("GameManager");
+                            DontDestroyOnLoad(g);
+                            _instance = g.AddComponent<GameManager>();  
+                            _instance._eventBus = new EventBusCore();
+                            _instance.ToUpdate = new();
+                            _instance.ToRemoveUpdate = new();
+                        }
+                    }
+                }
+                return _instance;
+            }
         }
-
+        private GameManager()
+        {
+        }
+        IEventBusCore _eventBus;
+        private Dictionary<string, Action<float>> ToUpdate { get; set; }
+        private List<string> ToRemoveUpdate { get; set; }
         private void Update()
         {
-            _brainSceneManager?.OnUpdate();
+            if(ToRemoveUpdate ?.Count >0 )
+            {
+                foreach(var item in ToRemoveUpdate)
+                {
+                    ToUpdate.Remove(item);
+                }
+            }
+            foreach(var action in ToUpdate.Values)
+            {
+                action(Time.deltaTime);
+            }
         }
+        /// <summary>
+        /// key can not be the same
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="action"></param>
+        public void AddUpdateListener(string key,Action<float> action)
+        {
+            ToUpdate[key] = action;
+        }
+
+        public void RemoveUpdateListener(string key)
+        {
+            ToRemoveUpdate.Add(key);
+        }
+
     }
 }

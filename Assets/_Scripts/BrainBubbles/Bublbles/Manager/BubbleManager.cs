@@ -22,6 +22,9 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         private const float _minBubbleShowTime = 1.5f;
         private const float _maxBubbleShowTime = 3f;
 
+        private const float _minBubbleZoom = 0.7f;
+        private const float _maxBubbleZoom = 1.5f;
+
         private IEventBusCore _eventBus;
         private RectTransform _frame;
 
@@ -34,9 +37,11 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
 
         private List<int> _remain;
         private System.IDisposable _bubbleBoomEventDis;
+        private System.IDisposable _gameOverEventDis;
 
         ~BubbleManager() { 
             _bubbleBoomEventDis?.Dispose();
+            _gameOverEventDis?.Dispose();
         } 
         public BubbleManager(IEventBusCore eventBus, RectTransform frame, BubblesInfo info)
         {
@@ -49,8 +54,28 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             OnStart();
 
             _bubbleBoomEventDis = _eventBus.Subscribe<BubbleBoomEvent>(OnBubbleBoomEvent);
+            _bubbleBoomEventDis = _eventBus.Subscribe<GameOverEvent>(OnGameOverEvent);
         }
 
+        private void OnGameOverEvent(GameOverEvent evt)
+        {
+            Over(evt.Message);
+        }
+
+        private void Over(string message = "")
+        {
+            foreach (var bubble in _bubbles.Values)
+            {
+                if(bubble is BrainBubble b)
+                {
+                    b.Over(BubbleBoomReason.GameOver,message);
+                }
+                else bubble.Boom(BubbleBoomReason.GameOver,message);
+            }
+            _remain.Clear();
+            _bubbles.Clear();
+            _toRemove.Clear();
+        }
         public void OnStart()
         {
             _remain.Clear();
@@ -67,18 +92,23 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         {
             RemoveBubble(evt.Id);
         }
-        public void NewBubble(BubblePos pos)
+        public bool NewBubble(BubblePos pos , out BubbleBase b)
         {
-            if (_remain.Count == 0) return;
-            if (!_info.TryCreateBubbleObject(_frame, pos, out var obj)) return;
+            b = null;
+            if (_remain.Count == 0) return false;
+            if (!_info.TryCreateBubbleObject(_frame, pos, out var obj)) return false;
             obj.name = $"Bubble {_id} ({pos.X},{pos.Y})";
 
 
             Button button = obj.GetComponent<Button>();
-            if (button == null) return;
+            if (button == null) return false;
 
             float random = Random.Range(_minBubbleShowTime, _maxBubbleShowTime);
             int random_index = Random.Range(0, _remain.Count);
+
+            // Bubble Zoom
+            float zoom = Random.Range(_minBubbleZoom, _maxBubbleZoom);
+            obj.transform.localScale = new Vector3(zoom, zoom, 1);
 
             if (_info.TryGetValue(_remain[random_index], out string content, out TypeValue value))
             {
@@ -87,8 +117,12 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
 
                 bubble.Init();
                 _id++;
+
+                b = bubble;
             }
             _remain.RemoveAt(random_index);
+
+            return true;
         }
 
         public void OnUpdate(float deltaTime)
@@ -107,6 +141,8 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         {
             _toRemove.Add(bubbleId);
         }
+
+
 
 
     }
