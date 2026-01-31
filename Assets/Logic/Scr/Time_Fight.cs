@@ -19,7 +19,6 @@ namespace luoyu
         private float currentWaitTime;
         private Slider slider_Time;
         private IResultInformastion resultInformastion;
-        //目标信息接口
         //结果信息接口
         private bool _result;
         private OverInformation _overInformation;
