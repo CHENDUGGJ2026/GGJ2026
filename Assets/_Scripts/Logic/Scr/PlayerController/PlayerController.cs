@@ -13,7 +13,11 @@ namespace LunziSpace
 
             if (curPlayer == null) curPlayer = new MyPlayerData_Anim { MoveSpeed = 5f };
             UIManager.Instance.DialogPanel.GetComponent<DialogController>().FightStarAction += DisableThisScript;
-            playerAnim = GetComponent<PlayerAnimController>();
+            UIManager.Instance.DialogPanel.GetComponent<DialogController>().FightOver += () =>
+            {
+                this.enabled = true;
+            };
+           playerAnim = GetComponent<PlayerAnimController>();
         }
 
         private void Update()
@@ -68,7 +72,6 @@ namespace LunziSpace
         private void DisableThisScript()
         {
             this.enabled = false;
-            Debug.Log("½ûÓÃÍæ¼Ò¿ØÖÆÆ÷");
         }
     }
 

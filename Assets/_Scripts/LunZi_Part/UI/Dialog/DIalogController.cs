@@ -44,6 +44,10 @@ namespace LunziSpace
 
         public Action FightStarAction;
         public Action FightAction;
+        public Action FightOver;
+
+        
+
 
         private void Start()
         {
@@ -55,9 +59,10 @@ namespace LunziSpace
             _fightBtn.onClick.AddListener(() =>
             {
                 var scene = new BrainSceneManager(this.gameObject.transform.parent.GetComponent<RectTransform>(), Vector2Int.zero , new Vector2Int(Screen.width, Screen.height), new GameOverAdaptor(new Over()));
+                FightAction?.Invoke();
                 GameManager.Instance.AddUpdateListener("BrainSceneManager", scene.OnUpdate);
                 scene.Start();
-                //FightAction?.Invoke();
+               
                 Debug.Log("战斗开始");
             });
         }
@@ -67,13 +72,7 @@ namespace LunziSpace
         /// </summary>
         private void Init()
         {
-            // 自动查找子组件（优先级高于Inspector赋值，防止赋值遗漏）
-            if (Name == null) Name = transform.Find("SpeakerName").gameObject;
-            if (Content == null) Content = transform.Find("Content").gameObject;
-            if (SpeakerPicture == null) SpeakerPicture = transform.Find("SpeakerPicture").gameObject;
-            if (NextBtn == null) NextBtn = transform.Find("NextBtn").gameObject;
-            if (PlayerPicture == null) PlayerPicture = transform.Find("PlayerPicture").gameObject;
-            if (FightBtn == null) FightBtn = transform.Find("FightBtn").gameObject;
+            
 
             // 获取组件核心组件【修正：GetComponent<Image>() 替代 SpriteRenderer】
             _speakerImage = SpeakerPicture.GetComponent<Image>();
@@ -591,7 +590,7 @@ namespace LunziSpace
         /// </summary>
         private void LoadSuccessList()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 string loadPath = $"Dialogues/Success/{i + 1}";
                 TextAsset dialog = Resources.Load<TextAsset>(loadPath);
@@ -612,7 +611,7 @@ namespace LunziSpace
         /// </summary>
         private void LoadFailList()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 string loadPath = $"Dialogues/Fail/{i + 1}";
                 TextAsset dialog = Resources.Load<TextAsset>(loadPath);
