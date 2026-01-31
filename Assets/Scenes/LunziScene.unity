@@ -419,6 +419,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6967615019626506962, guid: 07f5bd9c45711844cabec5ce5cd4f08e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -435,6 +439,10 @@ PrefabInstance:
     - target: {fileID: 4616118359523255331, guid: 6cc1467192ec819459f1e6456dc2602a, type: 3}
       propertyPath: m_Name
       value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616118359523255331, guid: 6cc1467192ec819459f1e6456dc2602a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7250657020525516267, guid: 6cc1467192ec819459f1e6456dc2602a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -493,6 +501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 5618852703530945283, guid: 78d3f782c60d9ba4c99b8b37a2133bdb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8936961584482546914, guid: 78d3f782c60d9ba4c99b8b37a2133bdb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.89
@@ -546,6 +558,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 19208904111811760, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 617300188697127708, guid: e008373373b671243af9e56f8eac727a, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -565,6 +581,10 @@ PrefabInstance:
     - target: {fileID: 3279276949728008979, guid: e008373373b671243af9e56f8eac727a, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279276949728008979, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3648903329226157572, guid: e008373373b671243af9e56f8eac727a, type: 3}
       propertyPath: pos
@@ -654,6 +674,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6617543539010283240, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -140
+      objectReference: {fileID: 0}
     - target: {fileID: 6775538950238467734, guid: e008373373b671243af9e56f8eac727a, type: 3}
       propertyPath: m_Camera
       value: 
@@ -666,6 +690,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 8343898501340457456, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8832982788358845015, guid: e008373373b671243af9e56f8eac727a, type: 3}
       propertyPath: m_fontAsset
       value: 

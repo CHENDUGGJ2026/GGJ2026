@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject BasePanel;
     public GameObject DialogPanel;
+
+    public Gradient Gradient;
     /// <summary>
     /// µ¥Àý
     /// </summary>

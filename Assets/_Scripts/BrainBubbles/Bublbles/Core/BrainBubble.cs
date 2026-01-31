@@ -51,6 +51,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Core
         }
         private void ClickBoom()
         {
+            _eventBusCore.Publish(new BubbleClickEvent(_id, _pos, _values));
             Over(BubbleBoomReason.Click,"On Click");
         }
         public override void Init()

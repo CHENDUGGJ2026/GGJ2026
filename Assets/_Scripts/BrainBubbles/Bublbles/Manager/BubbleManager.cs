@@ -6,6 +6,7 @@
 using MyFrame.BrainBubbles.Bubbles.Core;
 using MyFrame.BrainBubbles.Bubbles.Interfaces;
 using MyFrame.BrainBubbles.Bubbles.Refs;
+using MyFrame.BrainBubbles.Frame.Score;
 using MyFrame.EventSystem.Events;
 using MyFrame.EventSystem.Interfaces;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         private const float _minBubbleShowTime = 1.5f;
         private const float _maxBubbleShowTime = 3f;
 
-        private const float _minBubbleZoom = 0.7f;
+        private const float _minBubbleZoom = 0.8f;
         private const float _maxBubbleZoom = 1.5f;
 
         private IEventBusCore _eventBus;
@@ -48,6 +49,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             _eventBus = eventBus;
             _frame = frame;
             _info = info;
+
             _bubbles = new Dictionary<string, BubbleBase>();
             _remain = new List<int>();
             _toRemove = new();
