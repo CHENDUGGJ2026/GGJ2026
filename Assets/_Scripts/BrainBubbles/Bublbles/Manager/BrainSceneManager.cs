@@ -8,11 +8,11 @@ using luoyu;
 using MyFrame.BrainBubbles.Bubbles.Interfaces;
 using MyFrame.BrainBubbles.Bubbles.Refs;
 using MyFrame.BrainBubbles.Frame.Core;
+using MyFrame.BrainBubbles.Frame.Score;
 using MyFrame.EventSystem.Core;
 using MyFrame.EventSystem.Events;
 using MyFrame.EventSystem.Interfaces;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 namespace MyFrame.BrainBubbles.Bubbles.Manager
@@ -58,7 +58,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             var face = c?.TargetValue();
             var condition = c?.GetConditionValue();
             var res = _resultInformastion.ResultJudgment(value, face.Value, condition.Value);
-            GameManager.Instance._eventBus.Publish(new GameOverEvent(res, "GameOver"));
+            GameManager.Instance._eventBus.Publish(new GameOverEvent(res, _gameValue ,"GameOver"));
             Debug.Log($"GameOver: If Win? {res}");
         }
     }
@@ -67,29 +67,33 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         private IBubbleManager _bubbleManager;
         private IEventBusCore _eventBusCore;
         private BubbleFrame _bubbleFrame;
-
+         
         private IGameOver _gameOver;
 
-        private GameValue _gameValue;
+        private IScoreUI _scoreUI;
+        private IScoreController _scoreController;
+
+        
+
 
         private bool _start = false;
 
-        private const float _gameTime = 10f;
+        private const float _gameTime = 13f;
         private float _time = 0;
 
         private const float _BubbleMinTime = 1f;
         private const float _BubbleMaxTime = 2f;
 
-        private float _bubbleTimer = 0f;
-        private float _bubbleTime = 1f;
+        private float _bubbleTimer = 1f;
+        private float _bubbleTime = 2f;
 
-        private const int _BubbleMinCount = 2;
-        private const int _BubbleMaxCount = 5;
+        private const int _BubbleMinCount = 3;
+        private const int _BubbleMaxCount = 7;
 
         private int _clickCount = 0;
-        private const int _maxClickCount = 5;
+        private const int _maxClickCount = 6;
 
-        private const int _maxRandomTimes = 3;
+        private const int _maxRandomTimes = 2;
         private const float _minBubbleDistance = 80f;
         private List<string> _toRemove;
 
@@ -113,10 +117,11 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
 
             _bubbleBoomEventDis = _eventBusCore.Subscribe<BubbleBoomEvent>(OnBubbleBoomEvent);
 
-            _start = false;
+            _scoreUI = new ScoreUI(_bubbleFrame);
+            _scoreController = new ScoreController(_eventBusCore, _scoreUI);
 
+            _start = false;
             _time = _gameTime;
-            _gameValue = new GameValue();
             _bubblePos = new Dictionary<string, BubblePos>();
             _toRemove = new List<string>();
             
@@ -130,9 +135,9 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
 
                 foreach (var v in evt.Value.GetValues())
                 {
-                    if (_gameValue.TryGetValue(v.Key, out var value))
+                    if (_scoreController.TryGetValue(v.Key, out var value))
                     {
-                        _gameValue.SetValue(v.Key, value + v.Value);
+                        _scoreController.TrySetValue(v.Key, value + v.Value);
                     }
 
                 }
@@ -143,7 +148,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
                     GameOver(GameOverReason.ClickTimesOn, $"ClickCount: {_clickCount}");
                 }
                 string message = "";
-                foreach (var v in _gameValue.GetValues())
+                foreach (var v in _scoreController.GetAll().GetValues())
                 {
                     message += $"{v.Key} {v.Value}\n";
                 }
@@ -162,8 +167,8 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         {
             _bubbleManager.Over(message);
             Stop();
-            _gameOver.GameOver(_gameValue);
-            _gameValue = new GameValue();
+            _gameOver.GameOver(_scoreController.GetAll());
+            _scoreController.Clear();
             _bubblePos = new Dictionary<string, BubblePos>();
             _toRemove.Clear();
             _time = _gameTime;
@@ -178,7 +183,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             if(_time > 0)
             {
                 _time -= time;
-                _bubbleFrame.ChangeTimeSlider(_time/_gameTime);
+                _bubbleFrame.ChangeTimeSlider(1-_time/_gameTime);
             }
             else
             {
