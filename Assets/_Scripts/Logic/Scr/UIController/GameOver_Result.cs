@@ -6,10 +6,10 @@ using UnityEngine.UI;
 using MyFrame.BrainBubbles.Bubbles.Manager;
 using MyFrame.EventSystem.Events;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class GameOver_Result : MonoBehaviour
 {
-    [SerializeField] VideoController_End videoPlayer;
     [SerializeField] Slider slider_Win;
     private Image slider_Win_Background;
     private Image slider_Win_Fill;
@@ -149,6 +149,6 @@ public class GameOver_Result : MonoBehaviour
     IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(2f);
-        videoPlayer.StartVideo();
+        SceneManager.LoadScene("EndScene");
     }
 }

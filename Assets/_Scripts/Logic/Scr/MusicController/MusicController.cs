@@ -65,6 +65,7 @@ public class MusicController : MonoBehaviour
     /// <param name="bgmClip">要播放的BGM音频片段</param>
     private void PlayBGM(AudioClip bgmClip)
     {
+        Debug.Log("当前播放：" +  bgmClip.name);
         // 校验：音频片段为空则提示并返回
         if (bgmClip == null)
         {

@@ -57,7 +57,7 @@ public class VideoController : MonoBehaviour
             Debug.Log("视频播放完成！");
             // 可在此处添加逻辑：比如跳转到游戏场景、显示按钮等
             //SceneManager.LoadScene("LogicScene");
-            StartCoroutine(LoadSceneAsync("LogicScene"));
+            StartCoroutine(LoadSceneAsync("Street"));
         }
     }
 
