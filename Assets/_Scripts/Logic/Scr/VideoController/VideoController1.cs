@@ -30,6 +30,11 @@ public class VideoController_End : MonoBehaviour
         // 监听视频播放完成事件（非循环时触发）
         videoPlayer.loopPointReached += OnVideoPlayComplete;
     }
+
+    private void Start()
+    {
+        StartVideo();
+    }
     public void StartVideo()
     {
         videoPlayer.clip = videoClips;
