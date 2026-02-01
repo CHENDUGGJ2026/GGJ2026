@@ -1,8 +1,11 @@
 using LunziSpace;
 using MyFrame.BrainBubbles.Bubbles.Manager;
+using MyFrame.EventSystem.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class BasePanelController : MonoBehaviour
 {
@@ -40,6 +43,8 @@ public class BasePanelController : MonoBehaviour
             a = new Vector2Int(-200, -100),
             b = new Vector2Int(-200, -100)
         };
+
+
     }
 
     /// <summary>
