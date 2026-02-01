@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LunziSpace;
 public class MusicController : MonoBehaviour
 {
     public static MusicController instance;
@@ -32,6 +33,8 @@ public class MusicController : MonoBehaviour
         }
         // 游戏启动时自动播放默认BGM
         DefaultBGM();
+
+        
     }
 
     /// <summary>
