@@ -12,7 +12,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Refs
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/BubblesInfo", order = 1)]
     public class BubblesData : ScriptableObject
     {
-        public GameObject OutFace;
+        public List<GameObject> OutFace;
         public List<BubblesDataPairs> values;
     }
 }
