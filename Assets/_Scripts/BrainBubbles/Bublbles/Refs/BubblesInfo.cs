@@ -15,12 +15,12 @@ namespace MyFrame.BrainBubbles.Bubbles.Refs
     [Serializable]
     public class BubblesInfo
     {
-        private GameObject _outFace;
+        private List<GameObject> _outFaces;
         private List<(string, TypeValue)> _contents;
 
-        public BubblesInfo(GameObject outFace, List<(string, TypeValue)> contents)
+        public BubblesInfo(List<GameObject> outFaces, List<(string, TypeValue)> contents)
         {
-            _outFace = outFace;
+            _outFaces = outFaces;
             _contents = contents;
         }
 
@@ -38,7 +38,8 @@ namespace MyFrame.BrainBubbles.Bubbles.Refs
         public bool TryCreateBubbleObject(RectTransform _target, BubblePos _pos, out GameObject bubble)
         {
             bubble = null;
-            bubble = GameObject.Instantiate(_outFace, _target);
+            var Ran = UnityEngine.Random.Range(0, _outFaces.Count);
+            bubble = GameObject.Instantiate(_outFaces[Ran], _target);
 
             var obj = bubble;
 

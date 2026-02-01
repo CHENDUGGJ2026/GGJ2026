@@ -13,6 +13,7 @@ namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Interfaces
     {
         void BoomOut(BubblePos pos, TypeValue values);
         void OnUpdate(float time);
+        void ClearAll();
     }
 }
 

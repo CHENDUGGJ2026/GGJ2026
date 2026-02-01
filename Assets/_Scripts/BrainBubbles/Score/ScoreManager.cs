@@ -39,7 +39,7 @@ namespace MyFrame.BrainBubbles.Frame.Score
         }
         private void OnBallArriveEvent(BallArriveEvent evt)
         {
-            _uI.ScoreUIValueAdd(evt.Type, evt.Value);
+            _uI.ScoreUIValueAdd(evt.Type, evt.Value/100f);
         }
 
         public bool TrySetValue(BubbleType type, float value)
@@ -90,7 +90,7 @@ namespace MyFrame.BrainBubbles.Frame.Score
             _scoreUI = new Dictionary<BubbleType, Slider>();
             _frame = frame;
             var t = _frame.RectTransform.Find("ScoreBoard");
-            Debug.Log($"ScoreBoard is null? {t.Find("Happy") is null}  Childs? {t.Find("Happy").childCount}");
+
             _scoreUI[BubbleType.Happy] = t.Find("Happy").GetComponent<Slider>();
             _scoreUI[BubbleType.Sad] = t.Find("Sad").GetComponent<Slider>();
             _scoreUI[BubbleType.Angry] = t.Find("Angry").GetComponent<Slider>();
@@ -104,7 +104,7 @@ namespace MyFrame.BrainBubbles.Frame.Score
         }
         public void ScoreUIValueAdd(BubbleType type , float value)
         {
-            _scoreUI[BubbleType.Happy].value += value;
+            _scoreUI[type].value += value;
         }
     }
 }

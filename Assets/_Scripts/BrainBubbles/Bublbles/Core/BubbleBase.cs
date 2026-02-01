@@ -55,7 +55,6 @@ namespace MyFrame.BrainBubbles.Bubbles.Core
 
         public virtual BubbleBoomReport Boom(BubbleBoomReason reason, string message = "")
         {
-            Debug.Log($"Boom! Reason: {reason}  Id: {_id}");
             _eventBusCore.Publish(new BubbleBoomEvent(_id, reason,_values, message));
             return new BubbleBoomReport(reason,_values, _id , message);
         }
