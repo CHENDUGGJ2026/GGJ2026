@@ -1,6 +1,8 @@
+using luoyu;
+using MyFrame.BrainBubbles.Bubbles.Manager;
 using System;
 using UnityEngine;
-using luoyu;
+using static LunziSpace.DialogController;
 namespace LunziSpace
 {
     public class PlayerController_Anim : MonoBehaviour
@@ -13,7 +15,19 @@ namespace LunziSpace
 
             if (curPlayer == null) curPlayer = new MyPlayerData_Anim { MoveSpeed = 5f };
             UIManager.Instance.DialogPanel.GetComponent<DialogController>().FightStarAction += DisableThisScript;
-            playerAnim = GetComponent<PlayerAnimController>();
+            UIManager.Instance.DialogPanel.GetComponent<DialogController>().FightOver += () =>
+            {
+                this.enabled = true;
+            };
+           playerAnim = GetComponent<PlayerAnimController>();
+
+           
+        }
+
+
+        void Test(FightStartEvent fightStart)
+        {
+            Debug.LogError("战斗开始事件已经接受");
         }
 
         private void Update()
@@ -68,7 +82,6 @@ namespace LunziSpace
         private void DisableThisScript()
         {
             this.enabled = false;
-            Debug.Log("禁用玩家控制器");
         }
     }
 
