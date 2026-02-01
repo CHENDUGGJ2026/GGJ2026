@@ -9,7 +9,7 @@ using MyFrame.EventSystem.Events;
 using MyFrame.EventSystem.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 namespace MyFrame.BrainBubbles.Frame.Score
 {
@@ -87,8 +87,10 @@ namespace MyFrame.BrainBubbles.Frame.Score
         private Dictionary<BubbleType, Slider> _scoreUI;
         public ScoreUI(BubbleFrame frame)
         {
+            _scoreUI = new Dictionary<BubbleType, Slider>();
             _frame = frame;
             var t = _frame.RectTransform.Find("ScoreBoard");
+            Debug.Log($"ScoreBoard is null? {t.Find("Happy") is null}  Childs? {t.Find("Happy").childCount}");
             _scoreUI[BubbleType.Happy] = t.Find("Happy").GetComponent<Slider>();
             _scoreUI[BubbleType.Sad] = t.Find("Sad").GetComponent<Slider>();
             _scoreUI[BubbleType.Angry] = t.Find("Angry").GetComponent<Slider>();
