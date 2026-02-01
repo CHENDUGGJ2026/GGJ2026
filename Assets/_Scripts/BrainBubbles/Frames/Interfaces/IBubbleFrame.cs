@@ -20,6 +20,7 @@ namespace MyFrame.BrainBubbles.Frame.Core
     public class BubbleFrame
     {
         public RectTransform RectTransform { get; private set; }
+        public RectTransform SmallBubbleTarget { get; private set; }
         private Vector4 _bubbleRect = new Vector4(0.1f, 0.1f, 0.9f, 0.9f);
         private GameObject _frame;
         private Slider _timeSlider;
@@ -35,6 +36,8 @@ namespace MyFrame.BrainBubbles.Frame.Core
             RectTransform = _frame.GetComponent<RectTransform>();
             RectTransform.anchoredPosition = pos;
             RectTransform.sizeDelta = size;
+
+            SmallBubbleTarget = RectTransform.Find("SmallBubbleTarget").GetComponent<RectTransform>();
            
 
             _timeSlider = _frame.transform.Find("Time").GetComponent<Slider>();
