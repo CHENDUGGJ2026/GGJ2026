@@ -77,16 +77,19 @@ namespace MyFrame.EventSystem.Events
         private readonly string _id;
         private readonly BubblePos _pos;
         private readonly TypeValue _type;
+        private readonly string _content;
 
-        public BubbleClickEvent(string id, BubblePos pos, TypeValue type)
+        public BubbleClickEvent(string id, BubblePos pos, TypeValue type, string content)
         {
             _id = id;
             _pos = pos;
             _type = type;
+            _content = content;
         }
         public string Id { get { return _id; }}
         public BubblePos Pos { get { return _pos; }}
         public TypeValue Type { get { return _type; }}
+        public string Content { get { return _content; }}
     }
 
     public sealed class BallArriveEvent : IEvent

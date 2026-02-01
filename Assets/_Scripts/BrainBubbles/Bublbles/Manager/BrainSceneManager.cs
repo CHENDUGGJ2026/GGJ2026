@@ -7,6 +7,7 @@ using LunziSpace;
 using luoyu;
 using MyFrame.BrainBubbles.Bubbles.BubbleMove.Core;
 using MyFrame.BrainBubbles.Bubbles.BubbleMove.Interfaces;
+using MyFrame.BrainBubbles.Bubbles.BubbleMusics;
 using MyFrame.BrainBubbles.Bubbles.Interfaces;
 using MyFrame.BrainBubbles.Bubbles.Refs;
 using MyFrame.BrainBubbles.Frame.Core;
@@ -69,13 +70,15 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         private IBubbleManager _bubbleManager;
         private IEventBusCore _eventBusCore;
         private BubbleFrame _bubbleFrame;
-         
+        
         private IGameOver _gameOver;
 
         private IScoreUI _scoreUI;
         private IScoreController _scoreController;
 
         private IBubbleMoveController _bubbleMoveController;
+
+        private IBubbleMusic _bubbleMusic;
 
 
         private bool _start = false;
@@ -100,11 +103,13 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         private List<string> _toRemove;
 
         private System.IDisposable _bubbleBoomEventDis;
+        private System.IDisposable _bubbleClickEventDis;
 
         private Dictionary<string, BubblePos> _bubblePos;
         ~BrainSceneManager()
         {
             _bubbleBoomEventDis?.Dispose();
+            _bubbleClickEventDis?.Dispose();
         }
 
         public BrainSceneManager(RectTransform transform, Vector2Int pos, Vector2Int size,IGameOver gameOver ,IEventBusCore eventBusCore = null)
@@ -122,9 +127,12 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             _bubbleMoveController = new BubbleMoveController(_eventBusCore, _bubbleFrame.RectTransform, _bubbleFrame.SmallBubbleTarget);
 
             _bubbleBoomEventDis = _eventBusCore.Subscribe<BubbleBoomEvent>(OnBubbleBoomEvent);
+            _bubbleClickEventDis = _eventBusCore.Subscribe<BubbleClickEvent>(OnBubbleClickEvent);
 
             _scoreUI = new ScoreUI(_bubbleFrame);
             _scoreController = new ScoreController(_eventBusCore, _scoreUI);
+
+            _bubbleMusic = new BubbleMusic();
 
             _start = false;
             _time = _gameTime;
@@ -132,12 +140,16 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             _toRemove = new List<string>();
             
         }
-
+        private void OnBubbleClickEvent(BubbleClickEvent evt)
+        {
+            _bubbleMusic.Play(evt.Content);
+        }
         private void OnBubbleBoomEvent(BubbleBoomEvent evt)
         {
             _toRemove.Add(evt.Id);
             if (evt.Reason == BubbleBoomReason.Click)
             {
+
                 if(_bubblePos.TryGetValue(evt.Id, out BubblePos pos))
                 {
                     _bubbleMoveController.BoomOut(pos, evt.Value);

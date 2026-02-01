@@ -6,7 +6,10 @@
 using MyFrame.BrainBubbles.Bubbles.Refs;
 using MyFrame.EventSystem.Events;
 using MyFrame.EventSystem.Interfaces;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +54,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Core
         }
         private void ClickBoom()
         {
-            _eventBusCore.Publish(new BubbleClickEvent(_id, _pos, _values));
+            _eventBusCore.Publish(new BubbleClickEvent(_id, _pos, _values,_content));
             Over(BubbleBoomReason.Click,"On Click");
         }
         public override void Init()
@@ -116,4 +119,66 @@ namespace MyFrame.BrainBubbles.Bubbles.Core
         }
     }
 }
+namespace MyFrame.BrainBubbles.Bubbles.BubbleMusics
+{
+    public interface IBubbleMusic
+    {
+        void Play(string content);
+    }
 
+    public interface ISpecialBubbleContent
+    {
+        void Add(string content, string key);
+        bool TryGet(string content , out string key);
+    }
+
+    public class BubbleMusic : IBubbleMusic
+    {
+        private ISpecialBubbleContent _specialBubbleContent;
+        public BubbleMusic()
+        {
+            _specialBubbleContent = new SpecialBubbleContent();
+            _specialBubbleContent.Add("¹¾¹¾¸Â¸Â", "gugugaga");
+            _specialBubbleContent.Add("ÄãÅüÎÒ¹ÏÊÇ°É", "liuhuaqiang");
+            _specialBubbleContent.Add("saki½´saki½´","saki");
+        }
+
+        public void Play(string content)
+        {
+            if(_specialBubbleContent.TryGet(content, out var s_key))
+            {
+                MusicController.instance.PlaySoundEffect(s_key);
+                return;
+            }
+            else
+            {
+                MusicController.instance.PlaySoundEffect("bo");
+            }
+        }
+    }
+
+    public class SpecialBubbleContent : ISpecialBubbleContent
+    {
+        private readonly Dictionary<string, string> _dic;
+        /// <summary>
+        /// content is DIC key , The PARAM key is the value
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="key"></param>
+        /// 
+        public SpecialBubbleContent()
+        {
+            _dic = new Dictionary<string, string>();
+        }
+        public void Add(string content , string key)
+        {
+            _dic[content] = key;
+        }
+
+        public bool TryGet(string content , out string key)
+        {
+            if(_dic.TryGetValue(content, out key)) return true; 
+            return false;
+        }
+    }
+}

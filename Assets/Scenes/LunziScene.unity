@@ -570,6 +570,54 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.ctime1
+      value: 28142
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.ctime2
+      value: 64957
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.key0.b
+      value: 0.5188679
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.key0.g
+      value: 0.5188679
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.key0.r
+      value: 0.5188679
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.key1.b
+      value: 0.36367005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.key1.g
+      value: 0.36367005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.key1.r
+      value: 0.36367005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.key2.b
+      value: 0.084905684
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.key2.g
+      value: 0.084905684
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.key2.r
+      value: 0.084905684
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116934753890600302, guid: e008373373b671243af9e56f8eac727a, type: 3}
+      propertyPath: Gradient.m_NumColorKeys
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1930391580915907630, guid: e008373373b671243af9e56f8eac727a, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -697,11 +745,11 @@ PrefabInstance:
     - target: {fileID: 8832982788358845015, guid: e008373373b671243af9e56f8eac727a, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 98db21b836836224b9053918de2c57f2, type: 2}
+      objectReference: {fileID: 11400000, guid: cdf26b721c1823b4cbce6cee4810a4d9, type: 2}
     - target: {fileID: 8832982788358845015, guid: e008373373b671243af9e56f8eac727a, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -951293643332716147, guid: 98db21b836836224b9053918de2c57f2, type: 2}
+      objectReference: {fileID: -5822282115822302640, guid: cdf26b721c1823b4cbce6cee4810a4d9, type: 2}
     - target: {fileID: 8832982788358845015, guid: e008373373b671243af9e56f8eac727a, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
