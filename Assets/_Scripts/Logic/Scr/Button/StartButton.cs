@@ -5,16 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour
 {
-    private Canvas canvas;
+    [SerializeField] GameObject UI;
     public VideoController controller;
 
-    private void Start()
-    {
-        canvas = GetComponentInParent<Canvas>();
-    }
     public void PutDown()
     {
-        canvas.enabled = false;
+        UI.gameObject.SetActive(false);
         controller.StartVideo();
     }
 }
