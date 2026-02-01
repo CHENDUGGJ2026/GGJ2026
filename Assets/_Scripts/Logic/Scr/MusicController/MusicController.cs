@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LunziSpace;
+using MyFrame.EventSystem.Events;
+using MyFrame.BrainBubbles.Bubbles.Manager;
 public class MusicController : MonoBehaviour
 {
     public static MusicController instance;
@@ -32,15 +34,19 @@ public class MusicController : MonoBehaviour
             instance = this;
         }
         // 游戏启动时自动播放默认BGM
-        DefaultBGM();
+        StartBGM();
 
-        
+        GameManager.Instance._eventBus.Subscribe<GameOverEvent>(DefaultBGM);
     }
 
+    public void StartBGM()
+    {
+        PlayBGM(DefaultBGM_music);
+    }
     /// <summary>
     /// 播放默认BGM（无卡顿切换）
     /// </summary>
-    public void DefaultBGM()
+    public void DefaultBGM(GameOverEvent gameOver)
     {
         PlayBGM(DefaultBGM_music);
     }
