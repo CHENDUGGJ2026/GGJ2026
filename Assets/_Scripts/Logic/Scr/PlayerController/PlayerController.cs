@@ -1,6 +1,8 @@
+using luoyu;
+using MyFrame.BrainBubbles.Bubbles.Manager;
 using System;
 using UnityEngine;
-using luoyu;
+using static LunziSpace.DialogController;
 namespace LunziSpace
 {
     public class PlayerController_Anim : MonoBehaviour
@@ -18,6 +20,14 @@ namespace LunziSpace
                 this.enabled = true;
             };
            playerAnim = GetComponent<PlayerAnimController>();
+
+           
+        }
+
+
+        void Test(FightStartEvent fightStart)
+        {
+            Debug.LogError("战斗开始事件已经接受");
         }
 
         private void Update()

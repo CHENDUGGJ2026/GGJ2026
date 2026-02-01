@@ -1,5 +1,6 @@
 using luoyu;
 using MyFrame.BrainBubbles.Bubbles.Manager;
+using MyFrame.EventSystem.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,10 +12,14 @@ using UnityEngine.UI;
 namespace LunziSpace
 {
 
-    
-
+   
     public class DialogController : MonoBehaviour
     {
+        public class FightStartEvent : IEvent
+        {
+            public string Message { get { return "FightStart"; } }
+        }
+
         #region 序列化字段（防呆，可在Inspector赋值/代码自动查找）
         [Header("对话界面组件")]
         [SerializeField] private GameObject Name;
@@ -58,12 +63,16 @@ namespace LunziSpace
             FightBtn.SetActive(false);
             _fightBtn.onClick.AddListener(() =>
             {
+                GameManager.Instance._eventBus.Publish<FightStartEvent>(new FightStartEvent());//推送战斗开始事件
+                Debug.Log("战斗开始事件推送完成");
+
                 var scene = new BrainSceneManager(this.gameObject.transform.parent.GetComponent<RectTransform>(), Vector2Int.zero , new Vector2Int(Screen.width, Screen.height), new GameOverAdaptor(new Over()));
                 FightAction?.Invoke();
                 GameManager.Instance.AddUpdateListener("BrainSceneManager", scene.OnUpdate);
                 scene.Start();
-               
-                Debug.Log("战斗开始");
+
+                
+
             });
         }
 
