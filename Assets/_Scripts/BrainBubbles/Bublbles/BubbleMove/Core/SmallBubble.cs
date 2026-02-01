@@ -1,4 +1,4 @@
-//Author : _SourceCode
+ï»¿//Author : _SourceCode
 //CreateTime : 2026-01-30-18:19:41
 //Version : 1.0
 //UnityVersion : 2022.3.62f2c1
@@ -9,48 +9,52 @@ using UnityEngine;
 
 namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Core
 {
+    using MyFrame.EventSystem.Events;
+    using MyFrame.EventSystem.Interfaces;
+    using UnityEngine;
 
-    public class SmallBubble : ISmallBubble
+    public sealed class SmallBubble
     {
-        private readonly RectTransform _self;      // Ð¡Çò RectTransform
-        private readonly RectTransform _panel;     // Ð¡ÇòËùÔÚ Panel£¨¸¸ÎïÌå£©
-        private readonly RectTransform _target;    // Ä¿±ê RectTransform
+        private readonly RectTransform _self;
+        private readonly RectTransform _panel;
+        private readonly RectTransform _target;
 
-        private Vector2 _vel;                      // µ±Ç°ËÙ¶È£¨anchoredµ¥Î»/Ãë£©
-        private readonly float _baseSpeed;         // ²Î¿¼³ß´çÏÂÑ²º½ËÙ¶È
-        private readonly Vector2 _initDir;
+        private readonly string _id;
 
-        // ÒÔÏÂ³£Á¿ÒÔ¡°²Î¿¼Ãæ°å³ß´ç¡±ÏÂÎªµ÷²Î»ù×¼
+        private Vector2 _vel;
+
+        // åŸºç¡€å‚æ•°ï¼ˆä»¥ referencePanelMin ä¸‹ä¸ºè°ƒå‚åŸºå‡†ï¼‰
+        private readonly float _baseSpeed;
+        private readonly float _referencePanelMin;
+
         private const float ArriveRadius = 5f;
         private const float MaxSpeed = 500f;
-        private const float Force = 10f;
+        private const float Force = 1000f;
 
-        // ²Î¿¼Ãæ°å×îÐ¡±ß£¨ÄãÄ¿±ê 3840x2160£¬min=2160£©
-        private const float ReferencePanelMin = 2160f;
+        public bool IsAlive => _self != null && _target != null;
+        public string Id => _id;
 
-        // Èç¹ûÄãÏ£Íû£ºÄ¿±ê²»ÔÚÍ¬Ò»¸¸¼¶£¬Ò²ÄÜÕýÈ·ÎüÒý
-        // true£º°ÑÄ¿±êÊÀ½çµã×ªµ½ panel µÄ¾Ö²¿×ø±ê£¬ÔÙ×÷ÎªÄ¿±êµã
-        // false£ºÖ±½ÓÓÃ target.anchoredPosition£¨ÒªÇóÍ¬¸¸¼¶/Í¬×ø±êÏµ£©
-        private readonly bool _useWorldToPanel = true;
-
-        public SmallBubble(RectTransform self, RectTransform target, float speed, Vector2 dir)
+        public SmallBubble(string id, RectTransform self, RectTransform panel, RectTransform target,
+            float baseSpeed, Vector2 dir, float referencePanelMin)
         {
+            _id = id;
             _self = self;
-            _panel = self != null ? self.parent as RectTransform : null;
+            _panel = panel;
             _target = target;
+            _baseSpeed = Mathf.Max(0f, baseSpeed);
+            _referencePanelMin = Mathf.Max(1f, referencePanelMin);
 
-            _baseSpeed = Mathf.Max(0f, speed);
-            _initDir = (dir.sqrMagnitude < 1e-6f) ? Random.insideUnitCircle : dir.normalized;
+            if (dir.sqrMagnitude < 1e-6f) dir = Vector2.up;
+            dir.Normalize();
 
-            // ³õËÙ¶È£¨Ã¿Ö¡»áÔÙ°´ panel Ëõ·Å²¹³¥£©
-            _vel = _initDir * _baseSpeed;
+            _vel = dir * _baseSpeed;
         }
 
         public void OnUpdate(float dt)
         {
-            if (_self == null || _target == null) return;
+            Debug.Log("SmallBubble Alive:  " + IsAlive);
+            if (!IsAlive) return;
 
-            // 1) ¸ù¾Ý Panel ´óÐ¡Ëõ·Å²ÎÊý£º±£Ö¤¡°Ïà¶ÔÃæ°å³ß¶È¡±µÄ¹Û¸ÐËÙ¶ÈÒ»ÖÂ
             float k = GetPanelScaleK();
             float arriveR = ArriveRadius * k;
             float maxV = MaxSpeed * k;
@@ -58,91 +62,51 @@ namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Core
             float steer = Force * k;
 
             Vector2 pos = _self.anchoredPosition;
-            Vector2 targetPos = GetTargetPosInPanel();
+
+            // è¿™é‡Œå‡è®¾ target ä¸Ž panel åœ¨åŒä¸€åæ ‡ç³»æ›´ç¨³ã€‚
+            // å¦‚æžœ target ä¸åœ¨åŒä¸€ panel ä¸‹ï¼Œå»ºè®®æ”¹æˆï¼šæŠŠ target ä¸–ç•Œç‚¹è½¬æ¢åˆ° panel å±€éƒ¨åæ ‡ï¼ˆæˆ‘ä¹‹å‰ç»™è¿‡ WorldToPanel çš„å†™æ³•ï¼‰
+            Vector2 targetPos = _target.anchoredPosition;
 
             Vector2 to = targetPos - pos;
             float dist = to.magnitude;
 
-            // 2) µ½´ï·¶Î§£ºÏú»Ù/»ØÊÕ
             if (dist <= arriveR)
             {
                 Boom();
                 return;
             }
 
-            // 3) Steering£ºÖð²½×ªÏòÄ¿±ê£¨¸üË¿»¬£©
             Vector2 desiredVel = (dist > 1e-6f) ? (to / dist) * cruiseV : Vector2.zero;
             Vector2 accel = (desiredVel - _vel) * steer;
 
             _vel += accel * dt;
-
-            // 4) ÏÞËÙ
+            Debug.Log("SmallBubble Vel:  " + _vel);
             float v = _vel.magnitude;
             if (v > maxV) _vel = _vel / v * maxV;
 
-            // 5) ÒÆ¶¯
             pos += _vel * dt;
 
-            // 6) ¿ÉÑ¡£ºÏÞÖÆÔÚ Panel ÄÚ
+            // å¯é€‰ï¼šé™åˆ¶åœ¨ panel å†…ï¼ˆé¿å…è·‘å‡ºåŽ»ï¼‰
             pos = ClampInsidePanel(pos, arriveR);
 
             _self.anchoredPosition = pos;
         }
 
-        public void Boom()
+        public void ForceBoom() => Boom();
+
+        private void Boom()
         {
             if (_self != null)
-            {
-                // Èç¹ûÄãÓÃ¶ÔÏó³Ø£¬°Ñ Destroy »»³É pool.Release(...)
                 Object.Destroy(_self.gameObject);
-            }
         }
 
-        /// <summary>
-        /// k = µ±Ç°Panel×îÐ¡±ß / ²Î¿¼Panel×îÐ¡±ß
-        /// PanelÔ½´ó -> kÔ½´ó -> ËÙ¶È/Á¦/°ë¾¶Ô½´ó -> Ïà¶Ô³ß¶È¹Û¸ÐÒ»ÖÂ
-        /// </summary>
         private float GetPanelScaleK()
         {
             if (_panel == null) return 1f;
 
-            Vector2 size = _panel.rect.size;
-            float panelMin = Mathf.Max(1f, Mathf.Min(Mathf.Abs(size.x), Mathf.Abs(size.y)));
-            return panelMin / Mathf.Max(1f, ReferencePanelMin);
-        }
-
-        /// <summary>
-        /// »ñÈ¡Ä¿±êµãÔÚ Panel ¾Ö²¿×ø±êÏµÏÂµÄÎ»ÖÃ£¨Óë self.anchoredPosition Í¬×ø±êÏµ£©
-        /// </summary>
-        private Vector2 GetTargetPosInPanel()
-        {
-            if (!_useWorldToPanel)
-            {
-                // ÒªÇó£ºtarget Óë self Í¬×ø±êÏµ£¨Í¨³£Í¬Ò»¸ö panel ÏÂ£©
-                return _target.anchoredPosition;
-            }
-
-            // ¸üÎÈ£º°ÑÄ¿±êµÄÊÀ½çµãÍ¶µ½ panel ¾Ö²¿×ø±ê
-            // ×¢Òâ£ºUI µÄ panel Í¨³£ÔÚ ScreenSpace-Overlay£¬ÐèÒªÓÃ RectTransformUtility
-            Vector3 world = _target.TransformPoint(_target.rect.center);
-            return WorldToPanelLocal(world);
-        }
-
-        private Vector2 WorldToPanelLocal(Vector3 worldPoint)
-        {
-            if (_panel == null) return _self.anchoredPosition;
-
-            var canvas = _panel.GetComponentInParent<Canvas>();
-            Camera cam = null;
-
-            // ScreenSpace-Overlay: cam = null
-            // ScreenSpace-Camera / WorldSpace: cam = canvas.worldCamera
-            if (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay)
-                cam = canvas.worldCamera;
-
-            Vector2 screen = RectTransformUtility.WorldToScreenPoint(cam, worldPoint);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_panel, screen, cam, out var local);
-            return local;
+            Vector2 s = _panel.rect.size;
+            float panelMin = Mathf.Max(1f, Mathf.Min(Mathf.Abs(s.x), Mathf.Abs(s.y)));
+            return panelMin / _referencePanelMin;
         }
 
         private Vector2 ClampInsidePanel(Vector2 pos, float padding)
@@ -150,15 +114,11 @@ namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Core
             if (_panel == null) return pos;
 
             Rect r = _panel.rect;
-            float left = r.xMin + padding;
-            float right = r.xMax - padding;
-            float bottom = r.yMin + padding;
-            float top = r.yMax - padding;
-
-            pos.x = Mathf.Clamp(pos.x, left, right);
-            pos.y = Mathf.Clamp(pos.y, bottom, top);
+            pos.x = Mathf.Clamp(pos.x, r.xMin + padding, r.xMax - padding);
+            pos.y = Mathf.Clamp(pos.y, r.yMin + padding, r.yMax - padding);
             return pos;
         }
     }
+
 }
 

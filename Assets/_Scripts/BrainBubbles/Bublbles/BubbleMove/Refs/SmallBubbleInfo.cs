@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Refs
 {
-    [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/BubblesInfo", order = 1)]
+    [CreateAssetMenu(fileName = "SmallBubbleData", menuName = "ScriptableObjects/SmallBubblesInfo", order = 1)]
     public class SmallBubbleInfo : ScriptableObject
     {
         [SerializeField]
@@ -29,8 +29,13 @@ namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Refs
         {
             obj = null;
             if ( dic == null ) dic = ToDic();
-            if(!dic.TryGetValue(type, out var o)) return false;
+            if(!dic.TryGetValue(type, out var o))
+            {
+                Debug.LogError("dic not contained");
+                return false;
+            }
             obj = GameObject.Instantiate(o);
+            Debug.Log("Successfully Created SmallBubble");
             return true;
         }
     }

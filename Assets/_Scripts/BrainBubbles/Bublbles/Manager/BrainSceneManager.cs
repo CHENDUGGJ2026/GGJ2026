@@ -5,6 +5,8 @@
 
 using LunziSpace;
 using luoyu;
+using MyFrame.BrainBubbles.Bubbles.BubbleMove.Core;
+using MyFrame.BrainBubbles.Bubbles.BubbleMove.Interfaces;
 using MyFrame.BrainBubbles.Bubbles.Interfaces;
 using MyFrame.BrainBubbles.Bubbles.Refs;
 using MyFrame.BrainBubbles.Frame.Core;
@@ -73,7 +75,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         private IScoreUI _scoreUI;
         private IScoreController _scoreController;
 
-        
+        private IBubbleMoveController _bubbleMoveController;
 
 
         private bool _start = false;
@@ -112,8 +114,12 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             _eventBusCore = eventBusCore ?? new EventBusCore();
             _gameOver = gameOver;
 
+           
+
             _bubbleFrame = new BubbleFrame(transform,frame,pos,size);
             _bubbleManager = new BubbleManager(_eventBusCore, _bubbleFrame.RectTransform, BubblesInfo.Bulid(bubblesData));
+
+            _bubbleMoveController = new BubbleMoveController(_eventBusCore, _bubbleFrame.RectTransform, _bubbleFrame.SmallBubbleTarget);
 
             _bubbleBoomEventDis = _eventBusCore.Subscribe<BubbleBoomEvent>(OnBubbleBoomEvent);
 
@@ -132,7 +138,10 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             _toRemove.Add(evt.Id);
             if (evt.Reason == BubbleBoomReason.Click)
             {
-
+                if(_bubblePos.TryGetValue(evt.Id, out BubblePos pos))
+                {
+                    _bubbleMoveController.BoomOut(pos, evt.Value);
+                }
                 foreach (var v in evt.Value.GetValues())
                 {
                     if (_scoreController.TryGetValue(v.Key, out var value))
@@ -195,6 +204,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         {
             if (!_start) return;
             TimeUpdate(time);
+            _bubbleMoveController.OnUpdate(time);
             _bubbleManager.OnUpdate(time);
             if(_toRemove.Count > 0)
             {
