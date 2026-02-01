@@ -164,6 +164,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
                 }
 
                 _clickCount++;
+                _bubbleFrame.ChangeTimesText("สฃำเดฮสý: " + (_maxClickCount - _clickCount));
                 if(_clickCount >= _maxClickCount)
                 {
                     GameOver(GameOverReason.ClickTimesOn, $"ClickCount: {_clickCount}");

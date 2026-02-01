@@ -1,5 +1,6 @@
 using luoyu;
 using MyFrame.BrainBubbles.Bubbles.Manager;
+using MyFrame.EventSystem.Events;
 using MyFrame.EventSystem.Interfaces;
 using System;
 using System.Collections;
@@ -12,13 +13,10 @@ using UnityEngine.UI;
 namespace LunziSpace
 {
 
-   
+
     public class DialogController : MonoBehaviour
     {
-        public class FightStartEvent : IEvent
-        {
-            public string Message { get { return "FightStart"; } }
-        }
+        
 
         #region 序列化字段（防呆，可在Inspector赋值/代码自动查找）
         [Header("对话界面组件")]
@@ -51,8 +49,22 @@ namespace LunziSpace
         public Action FightAction;
         public Action FightOver;
 
-        
+        public void StartGame()
+        {
+            StartCoroutine(AutoStart());
+        }
+        IEnumerator AutoStart()
+        {
+            yield return new WaitForSecondsRealtime(2);
+            GameManager.Instance._eventBus.Publish<FightStartEvent>(new FightStartEvent());//推送战斗开始事件
+            Debug.Log("战斗开始事件推送完成");
 
+            var scene = new BrainSceneManager(this.gameObject.transform.parent.GetComponent<RectTransform>(), Vector2Int.zero , new Vector2Int(Screen.width, Screen.height), new GameOverAdaptor(new Over()));
+            FightAction?.Invoke();
+            GameManager.Instance.AddUpdateListener("BrainSceneManager", scene.OnUpdate);
+            scene.Start();
+            yield return null;
+        }
 
         private void Start()
         {
@@ -66,12 +78,12 @@ namespace LunziSpace
                 GameManager.Instance._eventBus.Publish<FightStartEvent>(new FightStartEvent());//推送战斗开始事件
                 Debug.Log("战斗开始事件推送完成");
 
-                var scene = new BrainSceneManager(this.gameObject.transform.parent.GetComponent<RectTransform>(), Vector2Int.zero , new Vector2Int(Screen.width, Screen.height), new GameOverAdaptor(new Over()));
+                var scene = new BrainSceneManager(this.gameObject.transform.parent.GetComponent<RectTransform>(), Vector2Int.zero, new Vector2Int(Screen.width, Screen.height), new GameOverAdaptor(new Over()));
                 FightAction?.Invoke();
                 GameManager.Instance.AddUpdateListener("BrainSceneManager", scene.OnUpdate);
                 scene.Start();
 
-                
+
 
             });
         }
@@ -208,7 +220,7 @@ namespace LunziSpace
                         DialogUpdata(content);
                         curPinter = 0; // 指针重置
                         NextBtn.SetActive(false);
-                        FightBtn.SetActive(true);
+                        //FightBtn.SetActive(true);
                         FightStarAction?.Invoke();
                         // 后续可添加战斗事件触发代码：BattleManager.Instance.StartFight(curNPCid);
                         break;
