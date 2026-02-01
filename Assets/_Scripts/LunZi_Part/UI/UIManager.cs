@@ -110,7 +110,13 @@ public class UIManager : MonoBehaviour
 
         GameValue thisValue = gameOverEvent.Value;
         var a = thisValue.GetValues();
-       
+        string messages = "";
+        foreach( var value in a )
+        {
+            messages += (value.ToString() + "\n");
+            Debug.Log(messages);
+        }
+        
         int curIndex = GetMaxValueIndex(a);
         curExpController.changeExpression(BasePanel.transform.Find("CurrentExpression").gameObject.GetComponent<Image>(), curIndex);
 
