@@ -29,7 +29,7 @@ namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Core
 
         private const float ArriveRadius = 5f;
         private const float MaxSpeed = 500f;
-        private const float Force = 10f;
+        private const float Force = 1000f;
 
         public bool IsAlive => _self != null && _target != null;
         public string Id => _id;
