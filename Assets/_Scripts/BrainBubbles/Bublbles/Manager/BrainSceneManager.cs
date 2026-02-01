@@ -161,7 +161,6 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
                 {
                     message += $"{v.Key} {v.Value}\n";
                 }
-                Debug.Log($"Current Value:\n{message}");
             }
         }
         public void Start()
@@ -174,6 +173,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         }
         public void GameOver(GameOverReason reason, string message = "")
         {
+            _bubbleMoveController.ClearAll();
             _bubbleManager.Over(message);
             Stop();
             _gameOver.GameOver(_scoreController.GetAll());
@@ -181,8 +181,6 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
             _bubblePos = new Dictionary<string, BubblePos>();
             _toRemove.Clear();
             _time = _gameTime;
-
-            Debug.Log("Current BrainScene : " + _start);
 
             return;
         }

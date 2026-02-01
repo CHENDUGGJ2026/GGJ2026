@@ -66,14 +66,14 @@ namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Core
             rect.SetParent(_transform, false);
 
             // 2) 统一 anchor/pivot，确保 anchoredPosition 以 Panel 中心为原点更好控
-            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.0f);
             rect.pivot = new Vector2(0.5f, 0.5f);
 
             // 3) 生成点在 pos 附近做少量随机扰动（按 Panel 尺寸比例）
             float x = Random.Range(-0.01f * _transform.rect.width, 0.01f * _transform.rect.width);
             float y = Random.Range(-0.01f * _transform.rect.height, 0.01f * _transform.rect.height);
 
-            rect.anchoredPosition = new Vector2(pos.X + x, pos.Y + y);
+            rect.localPosition = new Vector2(pos.X + x, pos.Y + y);
             rect.localRotation = Quaternion.identity;
 
             // 4) 随机初始方向与速度
@@ -120,7 +120,11 @@ namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Core
                 b.OnUpdate(dt);
 
                 if (!b.IsAlive)
+                {
+                    _eventBus.Publish(new BallArriveEvent(b.Id, _values[b.Id].Item1, _values[b.Id].Item2));
                     _bubbles.RemoveAt(i);
+                }
+                    
             }
         }
 
@@ -131,7 +135,22 @@ namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Core
             {
                 _bubbles[i]?.ForceBoom();
             }
+            
+
+            for (int i = _bubbles.Count - 1; i >= 0; i--)
+            {
+                var b = _bubbles[i];
+
+                // 目标/自身被销毁时清掉
+                if (b == null || !b.IsAlive)
+                {
+                    _eventBus.Publish(new BallArriveEvent(b.Id, _values[b.Id].Item1, _values[b.Id].Item2));
+                    _bubbles.RemoveAt(i);
+                    continue;
+                }
+            }
             _bubbles.Clear();
+            _values.Clear();
         }
     }
 
