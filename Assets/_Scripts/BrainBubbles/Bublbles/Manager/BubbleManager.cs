@@ -20,8 +20,8 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
     /// </summary>
     public class BubbleManager : IBubbleManager
     {
-        private const float _minBubbleShowTime = 1.5f;
-        private const float _maxBubbleShowTime = 3f;
+        private const float _minBubbleShowTime = 2.5f;
+        private const float _maxBubbleShowTime = 4f;
 
         private const float _minBubbleZoom = 0.8f;
         private const float _maxBubbleZoom = 1.5f;

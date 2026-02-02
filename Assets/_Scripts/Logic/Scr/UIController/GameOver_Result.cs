@@ -157,12 +157,14 @@ public class GameOver_Result : MonoBehaviour
     IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(5f);
+        Destroy(UIManager.Instance.gameObject);
         SceneManager.LoadScene("EndScene");
     }
 
     IEnumerator WaitTime_lose()
     {
         yield return new WaitForSeconds(5f);
+        Destroy(UIManager.Instance.gameObject);
         SceneManager.LoadScene("Main");
     }
 }

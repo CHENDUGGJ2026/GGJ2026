@@ -253,7 +253,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1811383101}
   m_HandleRect: {fileID: 0}
@@ -718,6 +718,94 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -354
       objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.ctime0
+      value: 193
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.ctime1
+      value: 17926
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.ctime2
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.ctime3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.ctime4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.ctime5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key0.b
+      value: 0.6132076
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key0.g
+      value: 0.6132076
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key0.r
+      value: 0.6132076
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key1.b
+      value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key1.g
+      value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key1.r
+      value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key2.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key2.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key2.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key3.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key3.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key3.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key4.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key4.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.key4.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535233321938513965, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
+      propertyPath: Gradient.m_NumColorKeys
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8360980435843502371, guid: 64567f35ff9638b44ae7780aa46ff459, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -987,7 +1075,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 504415774}
   m_HandleRect: {fileID: 0}

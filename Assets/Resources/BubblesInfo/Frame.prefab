@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5269\u4F59\u6B21\u6570: 6"
+  m_text: "\u5269\u4F59\u6B21\u6570: 8"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cdf26b721c1823b4cbce6cee4810a4d9, type: 2}
   m_sharedMaterial: {fileID: -1459270828637754021, guid: cdf26b721c1823b4cbce6cee4810a4d9, type: 2}
