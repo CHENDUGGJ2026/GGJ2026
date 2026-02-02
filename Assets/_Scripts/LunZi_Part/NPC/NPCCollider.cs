@@ -31,6 +31,7 @@ namespace LunziSpace
             UIManager.Instance.DialogPanel.GetComponent<DialogController>().UpdataCurText(newDialogText);
             UIManager.Instance.DialogPanel.SetActive(true);
 
+            UIManager.Instance.DialogPanel.GetComponent<DialogController>().StartGame();
         }
 
     }

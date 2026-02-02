@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class GameOver_Result : MonoBehaviour
 {
+    [SerializeField] Image loseImage;
     [SerializeField] Slider slider_Win;
     private Image slider_Win_Background;
     private Image slider_Win_Fill;
@@ -21,7 +22,7 @@ public class GameOver_Result : MonoBehaviour
     private RawImage rawImage;
 
     private const int Win_target = 3;
-    private const int Lose_target = 10;
+    private const int Lose_target = 5;
 
     private int currentWin_num;
     private int currentLose_num;
@@ -76,6 +77,7 @@ public class GameOver_Result : MonoBehaviour
             SetSliderAlpha(slider_Lose, 1f);
             StopCoroutine(StartSliderFadeOut(slider_Lose));
             StartCoroutine(StartSliderFadeOut(slider_Lose));
+            EndJudgment();
         }
     }
 
@@ -144,11 +146,25 @@ public class GameOver_Result : MonoBehaviour
         {
             StartCoroutine(WaitTime());
         }
+
+        if (slider_Lose.value >= slider_Lose.maxValue)
+        {
+            loseImage.gameObject.SetActive(true);
+            StartCoroutine(WaitTime_lose());
+        }
     }
 
     IEnumerator WaitTime()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
+        Destroy(UIManager.Instance.gameObject);
         SceneManager.LoadScene("EndScene");
+    }
+
+    IEnumerator WaitTime_lose()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(UIManager.Instance.gameObject);
+        SceneManager.LoadScene("Main");
     }
 }

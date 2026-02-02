@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e788f705d4bd5c4aac6cdc2c5956dfb, type: 3}
   m_Name: Data
   m_EditorClassIdentifier: 
-  OutFace: {fileID: 5667856944010285271, guid: b3a8ad5921243c7498bacd899221ce64, type: 3}
+  OutFace:
+  - {fileID: 5667856944010285271, guid: cc979af47914c2246ba11166981b22ba, type: 3}
+  - {fileID: 5667856944010285271, guid: ee61f8749e83ce242b2950ac356bfc0a, type: 3}
+  - {fileID: 5667856944010285271, guid: 8c0d990a72883d54e9e6f83e51fd542b, type: 3}
   values:
   - content: "\u54C8\u54C8\u54C8 "
     value:

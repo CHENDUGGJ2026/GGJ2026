@@ -15,7 +15,6 @@ namespace MyFrame.BrainBubbles.Bubbles.BubbleMove.Core
     using MyFrame.EventSystem.Interfaces;
     using System.Collections.Generic;
     using UnityEngine;
-    using static UnityEditor.PlayerSettings;
 
     public class BubbleMoveController : IBubbleMoveController
     {

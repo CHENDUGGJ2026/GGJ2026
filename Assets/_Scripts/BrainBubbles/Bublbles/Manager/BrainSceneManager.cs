@@ -83,7 +83,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
 
         private bool _start = false;
 
-        private const float _gameTime = 13f;
+        private const float _gameTime = 15f;
         private float _time = 0;
 
         private const float _BubbleMinTime = 1f;
@@ -96,7 +96,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
         private const int _BubbleMaxCount = 7;
 
         private int _clickCount = 0;
-        private const int _maxClickCount = 6;
+        private const int _maxClickCount = 8;
 
         private const int _maxRandomTimes = 2;
         private const float _minBubbleDistance = 80f;
@@ -164,6 +164,7 @@ namespace MyFrame.BrainBubbles.Bubbles.Manager
                 }
 
                 _clickCount++;
+                _bubbleFrame.ChangeTimesText("สฃำเดฮสý: " + (_maxClickCount - _clickCount));
                 if(_clickCount >= _maxClickCount)
                 {
                     GameOver(GameOverReason.ClickTimesOn, $"ClickCount: {_clickCount}");

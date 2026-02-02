@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OpenSettingUI : MonoBehaviour
 {
-    [SerializeField] Canvas canvas;
+    [SerializeField] GameObject canvas;
     public static bool isOpen;
     private void Start()
     {

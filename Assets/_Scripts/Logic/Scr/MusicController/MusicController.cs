@@ -37,6 +37,11 @@ public class MusicController : MonoBehaviour
         StartBGM();
 
         GameManager.Instance._eventBus.Subscribe<GameOverEvent>(DefaultBGM);
+        GameManager.Instance._eventBus.Subscribe<FightStartEvent>(OnFightStartEvent);
+    }
+    private void OnFightStartEvent(FightStartEvent evt)
+    {
+        FightBGM();
     }
 
     public void StartBGM()

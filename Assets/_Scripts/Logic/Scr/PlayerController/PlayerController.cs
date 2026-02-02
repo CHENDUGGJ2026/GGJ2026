@@ -1,5 +1,6 @@
 using luoyu;
 using MyFrame.BrainBubbles.Bubbles.Manager;
+using MyFrame.EventSystem.Events;
 using System;
 using UnityEngine;
 using static LunziSpace.DialogController;

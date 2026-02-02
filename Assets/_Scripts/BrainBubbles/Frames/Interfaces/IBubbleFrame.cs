@@ -4,6 +4,7 @@
 //UnityVersion : 2022.3.62f2c1
 
 using MyFrame.BrainBubbles.Bubbles.Refs;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,8 @@ namespace MyFrame.BrainBubbles.Frame.Core
     {
         public RectTransform RectTransform { get; private set; }
         public RectTransform SmallBubbleTarget { get; private set; }
+
+        public TextMeshProUGUI RemainTimes {  get; private set; }
         private Vector4 _bubbleRect = new Vector4(0.1f, 0.1f, 0.9f, 0.9f);
         private GameObject _frame;
         private Slider _timeSlider;
@@ -38,12 +41,16 @@ namespace MyFrame.BrainBubbles.Frame.Core
             RectTransform.sizeDelta = size;
 
             SmallBubbleTarget = RectTransform.Find("SmallBubbleTarget").GetComponent<RectTransform>();
-           
+
+            RemainTimes = RectTransform.Find("Brain").Find("RemainTimes").GetComponent<TextMeshProUGUI>();
 
             _timeSlider = _frame.transform.Find("Time").GetComponent<Slider>();
             _image = _timeSlider.fillRect.GetComponent<Image>();
         }
-
+        public void ChangeTimesText(string text)
+        {
+            RemainTimes.text = text;
+        }
         public void ChangeTimeSlider(float time)
         {
             _timeSlider.value = time;

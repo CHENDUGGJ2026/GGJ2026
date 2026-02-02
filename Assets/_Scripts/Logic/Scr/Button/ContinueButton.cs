@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ContinueButton : MonoBehaviour
 {
-    [SerializeField] Canvas canvas;
+    [SerializeField] GameObject canvas;
     public void PutDown()
     {
         Time.timeScale = 1.0f;

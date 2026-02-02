@@ -109,4 +109,9 @@ namespace MyFrame.EventSystem.Events
         public float Value { get { return _value; }}
     }
 
+    public sealed class FightStartEvent : IEvent
+    {
+        public string Message { get { return "FightStart"; } }
+    }
+
 }
