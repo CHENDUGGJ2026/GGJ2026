@@ -57,7 +57,7 @@ namespace LunziSpace
         {
             yield return new WaitForSecondsRealtime(2);
             GameManager.Instance._eventBus.Publish<FightStartEvent>(new FightStartEvent());//推送战斗开始事件
-            Debug.Log("战斗开始事件推送完成");
+
 
             var scene = new BrainSceneManager(this.gameObject.transform.parent.GetComponent<RectTransform>(), Vector2Int.zero , new Vector2Int(Screen.width, Screen.height), new GameOverAdaptor(new Over()));
             FightAction?.Invoke();

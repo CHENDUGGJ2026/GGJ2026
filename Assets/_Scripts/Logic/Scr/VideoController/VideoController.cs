@@ -16,6 +16,8 @@ public class VideoController : MonoBehaviour
     public bool autoPlay = false;    // 是否自动播放
     public bool isLoop = false;      // 是否循环播放
 
+    private bool _playOnce = true;//只播放一次
+
     private void Awake()
     {
         // 初始化VideoPlayer（如果未赋值，自动获取）
@@ -51,13 +53,14 @@ public class VideoController : MonoBehaviour
     /// </summary>
     private void OnVideoPlayComplete(VideoPlayer vp)
     {
-        if (!isLoop)
+        if (!isLoop && _playOnce)
         {
             StopVideo();
             Debug.Log("视频播放完成！");
             // 可在此处添加逻辑：比如跳转到游戏场景、显示按钮等
             //SceneManager.LoadScene("LogicScene");
             StartCoroutine(LoadSceneAsync("Street"));
+            _playOnce = false;
         }
     }
 
